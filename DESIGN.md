@@ -69,7 +69,7 @@ components:
 
 LabelCloud feels like a precisely lit record archive after hours: dark, calm and tactile, with information taking precedence over decoration. The macro vinyl image supplies the music context, while the interface itself remains editorial and operational.
 
-The product deliberately rejects chrome, robotic geometry and dense sci-fi dashboards. Motion is restrained to short reveals and gentle image drift; reduced-motion preferences remove it.
+The product deliberately rejects chrome, robotic geometry and dense sci-fi dashboards. A single photorealistic vinyl record persists through the page and rotates with scroll progress, connecting the product story without adding decorative UI noise. Reduced-motion preferences fall back to the static hero photograph.
 
 **Key Characteristics:**
 
@@ -77,6 +77,7 @@ The product deliberately rejects chrome, robotic geometry and dense sci-fi dashb
 - Oversized, tightly tracked headings and quiet supporting copy.
 - One rare lilac signal for focus, icons and selected details.
 - Real music identity assets instead of invented dashboard mockups.
+- One continuous vinyl object whose rotation and restrained movement mirror progress through the label workflow.
 
 ## Colors
 
@@ -131,6 +132,10 @@ The core interface is flat. Depth comes from tonal layering, hairline separators
 ### Named Rules
 
 **The Flat Archive Rule.** Product content stays on the page plane; shadow is reserved for genuinely floating utilities.
+
+**The Spinning Record Rule.** The vinyl is the only continuous scroll-driven object. It stays behind copy, animates only with transforms and opacity, and never competes with controls.
+
+**The Shared Center Rule.** The approved LabelCloud wordmark is a separate transparent asset used in the header and on the record label. Inside the record it inherits the disc rotation and the stage scale, so the two layers never drift apart.
 
 ## Shapes
 

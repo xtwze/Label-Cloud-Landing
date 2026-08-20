@@ -16,18 +16,17 @@ import { YandexMetrica } from "@/components/yandex-metrica";
 
 const capabilities = [
   { icon: IdentificationCard, title: "Артисты", text: "Единые карточки, документы, реквизиты и история работы." },
-  { icon: Headphones, title: "Релизы", text: "Понятный путь релиза от заявки до готовности к отгрузке." },
-  { icon: FileText, title: "Договоры", text: "Генерация документов из ваших шаблонов и данных артиста." },
-  { icon: PaperPlaneTilt, title: "Отгрузка", text: "Рабочие статусы и контроль материалов в одном процессе." },
-  { icon: SlidersHorizontal, title: "Отчёты", text: "Загрузка отчётных данных без ручной сборки из разных файлов." },
+  { icon: Headphones, title: "Релизы", text: "Артисты загружают треки и материалы прямо в кабинет вашего лейбла." },
+  { icon: FileText, title: "Договоры", text: "Ваши шаблоны договоров и полный документооборот внутри платформы." },
+  { icon: PaperPlaneTilt, title: "Отгрузка", text: "Команда проверяет релиз и передаёт его дистрибьютору через платформу." },
+  { icon: SlidersHorizontal, title: "Отчёты", text: "Автоматическая обработка отчётов дистрибьютора и распределение по артистам." },
   { icon: Bank, title: "Балансы", text: "Начисления, выплаты и понятная финансовая картина артиста." },
 ];
 
 const workflow = [
   ["Соберите данные", "Артист заполняет только те поля, которые нужны вашему лейблу."],
-  ["Подготовьте релиз", "Команда проверяет материалы и ведёт релиз по понятным статусам."],
-  ["Сформируйте документы", "Данные подставляются в согласованные шаблоны без повторного ввода."],
-  ["Загрузите отчёт", "Начисления и баланс артиста обновляются в общей системе."],
+  ["Сформируйте документы", "Данные автоматически подставляются в ваши договоры и документы."],
+  ["Загрузите отчёт", "Система автоматически обработает отчёт дистрибьютора и распределит начисления по артистам."],
 ];
 
 export default function Home() {
@@ -35,30 +34,29 @@ export default function Home() {
     <MotionFrame>
       <YandexMetrica />
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="LabelCloud, на главную">LabelCloud</a>
+        <a className="header-brand" href="#top" aria-label="LabelCloud, на главную">
+          <Image
+            className="header-brand-image"
+            src="/images/brand/labelcloud-logo.png"
+            alt=""
+            width={1972}
+            height={354}
+            priority
+          />
+        </a>
         <nav className="desktop-nav" aria-label="Основная навигация">
           <a href="#platform">Платформа</a>
           <a href="#approach">Подход</a>
-          <a href="#case">Кейс</a>
         </nav>
         <a className="header-cta" href="#contact">Оставить заявку</a>
       </header>
 
       <main id="top">
         <section className="hero" aria-labelledby="hero-title">
-          <Image
-            className="hero-image"
-            src="/images/labelcloud-vinyl-hero.png"
-            alt="Минималистичный крупный план виниловой пластинки"
-            fill
-            priority
-            sizes="100vw"
-          />
-          <div className="hero-shade" />
           <div className="hero-content">
             <p className="hero-kicker hero-reveal">B2B-платформа для музыкальных лейблов</p>
             <h1 id="hero-title" className="hero-title hero-reveal">Операционная система музыкального лейбла</h1>
-            <p className="hero-copy hero-reveal">Артисты, релизы, договоры, отчёты и выплаты в едином рабочем пространстве.</p>
+            <p className="hero-copy hero-reveal">Артисты загружают треки и документы. Лейбл ведёт релизы, отчёты и выплаты в одном кабинете.</p>
             <div className="hero-actions hero-reveal">
               <a className="button button-primary" href="#contact">Оставить заявку</a>
               <a className="button button-quiet" href="#platform">Как это работает</a>
@@ -68,15 +66,16 @@ export default function Home() {
 
         <section className="trust-strip" aria-label="Клиенты LabelCloud">
           <p>Платформа уже работает для</p>
-          <a className="xlora-mark" href="#case" aria-label="Перейти к кейсу XLORA">
-            <Image src="/images/xlora-logo.png" alt="XLORA" width={897} height={303} />
-          </a>
-          <p>Следующий кабинет может быть вашим</p>
+          <div className="client-logos">
+            <a className="client-logo" href="https://yandex.ru/maps/org/xlora_music/137660837072/" target="_blank" rel="noreferrer" aria-label="Открыть страницу XLORA">
+              <Image src="/images/xlora-logo.png" alt="XLORA" width={897} height={303} />
+            </a>
+          </div>
         </section>
 
         <section className="manifesto section-shell reveal-section">
           <h2>Лейбл не должен жить в десятках таблиц и переписок.</h2>
-          <p>LabelCloud соединяет ежедневные процессы в один понятный маршрут. Команда видит состояние работы, артист понимает следующий шаг.</p>
+          <p>Личный кабинет дистрибьютора, собранный для вашего лейбла: артисты загружают треки и документы, команда ведёт релизы, договоры и отчётность.</p>
         </section>
 
         <section id="platform" className="capabilities section-shell" aria-labelledby="capabilities-title">
@@ -115,7 +114,7 @@ export default function Home() {
         <section id="approach" className="custom section-shell reveal-section">
           <div className="custom-statement"><h2>Не подгоняем лейбл под чужую схему.</h2></div>
           <div className="custom-copy">
-            <p>Настроим поля, документы, роли и этапы работы под ваши правила. Нестандартную функцию сначала обсудим, затем честно оценим и встроим в общий процесс.</p>
+            <p>Настроим поля, документы, роли и этапы работы под ваши правила. Добавим необходимые функции и встроим их в общий процесс.</p>
             <a href="#contact" className="text-link">Обсудить свой сценарий <ArrowUpRight size={18} aria-hidden="true" /></a>
           </div>
         </section>
@@ -124,25 +123,13 @@ export default function Home() {
           <div className="migration-number" aria-hidden="true">0 ₽</div>
           <div>
             <h2>Переносим стартовую базу бесплатно</h2>
-            <p>Изучим формат ваших данных и перенесём существующих артистов и релизы. Сложное восстановление или нестандартное преобразование заранее согласуем отдельно.</p>
-          </div>
-        </section>
-
-        <section id="case" className="case-section section-shell" aria-labelledby="case-title">
-          <div className="case-visual reveal-section">
-            <Image src="/images/xlora-identity.png" alt="Фирменная графика музыкального лейбла XLORA" width={1983} height={793} sizes="(max-width: 768px) 100vw, 58vw" />
-          </div>
-          <div className="case-copy reveal-section">
-            <Image src="/images/xlora-logo.png" alt="XLORA" width={897} height={303} />
-            <h2 id="case-title">Первый рабочий контур LabelCloud</h2>
-            <p>Для XLORA платформа объединяет работу с артистами, релизами, договорами, отчётностью и поддержкой.</p>
-            <p className="case-note">Показываем только подтверждённые возможности, без вымышленных цифр и результатов.</p>
+            <p>Изучим формат ваших данных и перенесём существующих артистов и релизы.</p>
           </div>
         </section>
 
         <section className="pricing section-shell reveal-section">
-          <h2>Стоимость зависит от масштаба и задач</h2>
-          <p>Обсудим число артистов, объём каталога, миграцию и индивидуальные функции. После разговора подготовим понятное предложение.</p>
+          <h2>Платформа под задачи вашего лейбла</h2>
+          <p>Количество артистов, объём каталога и набор функций определяют конфигурацию LabelCloud.</p>
           <a className="button button-primary" href="#contact">Получить предложение</a>
         </section>
 
