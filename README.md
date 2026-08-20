@@ -34,6 +34,19 @@ Public landing page and enquiry API for LabelCloud.
 The site is available at `http://localhost:3000`. The public API listens at `http://localhost:8080`.
 The isolated development PostgreSQL is exposed on `localhost:5433` to avoid colliding with an existing local database.
 
+### Private administration
+
+The administration page is intentionally not linked from the public landing page. Open it directly at `http://localhost:3000/admin`.
+
+Set the backend credentials before starting Spring Boot:
+
+```bash
+export LABELCLOUD_ADMIN_USERNAME=owner
+export LABELCLOUD_ADMIN_PASSWORD='{noop}replace-this-for-local-development'
+```
+
+`{noop}` is acceptable only for local development. For deployment, provide a delegated bcrypt value such as `{bcrypt}$2a$...` and enable `SESSION_COOKIE_SECURE=true` behind HTTPS. If either admin credential is empty, admin login stays disabled.
+
 ## Verification
 
 ```bash
@@ -46,4 +59,4 @@ docker compose config --quiet
 
 Yandex Metrica stays disabled when `NEXT_PUBLIC_YANDEX_METRICA_ID` is empty. When configured, the script loads only after the visitor accepts analytics cookies.
 
-Administrative enquiry management, authentication and interactive demo access are deliberately left for later releases. The public API currently accepts and validates enquiries only.
+The protected administration area uses a server-side Spring Security session and CSRF protection. Interactive demo access remains a later release.

@@ -32,7 +32,7 @@ The sales flow is enquiry first: a visitor submits contact details, the operator
 - Enquiry fields: contact name, label name, email, phone and Telegram are required; comment is optional; personal-data consent is required.
 - Enquiries are validated on the server and stored in PostgreSQL.
 - Yandex Metrica integration must be configuration-driven and safe to leave disabled.
-- A protected administration area for enquiries is planned, not part of the first public release.
+- A protected, unlinked administration area is available for reviewing enquiries and changing their status.
 - Interactive demo access, exact tariff levels, INN and the final domain/tenant deployment model remain open decisions.
 - Free migration is a launch offer: the source format is studied, then existing artists and releases are transferred.
 - The product is presented as a distributor-style personal cabinet for the label: artists submit tracks and materials, the team manages releases and its own contracts, and distributor reports are automatically processed and allocated to artists.

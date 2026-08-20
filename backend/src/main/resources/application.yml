@@ -17,6 +17,13 @@ spring:
 server:
   error:
     include-message: never
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        same-site: lax
+        secure: ${SESSION_COOKIE_SECURE:false}
+      timeout: 8h
 
 management:
   endpoints:
@@ -25,5 +32,8 @@ management:
         include: health,info
 
 labelcloud:
+  admin:
+    username: ${LABELCLOUD_ADMIN_USERNAME:}
+    password: ${LABELCLOUD_ADMIN_PASSWORD:}
   web:
     allowed-origins: ${ALLOWED_ORIGINS:http://localhost:3000}

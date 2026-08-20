@@ -72,4 +72,44 @@ class Enquiry {
     UUID getId() {
         return id;
     }
+
+    String getContactName() {
+        return contactName;
+    }
+
+    String getLabelName() {
+        return labelName;
+    }
+
+    String getEmail() {
+        return email;
+    }
+
+    String getPhone() {
+        return phone;
+    }
+
+    String getTelegram() {
+        return telegram;
+    }
+
+    String getComment() {
+        return comment;
+    }
+
+    EnquiryStatus getStatus() {
+        return status;
+    }
+
+    Instant getConsentedAt() {
+        return consentedAt;
+    }
+
+    Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    void changeStatus(EnquiryStatus status) {
+        this.status = status;
+    }
 }
