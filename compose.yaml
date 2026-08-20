@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: labelcloud
+      POSTGRES_USER: labelcloud
+      POSTGRES_PASSWORD: labelcloud
+    ports:
+      - "5433:5432"
+    volumes:
+      - labelcloud-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U labelcloud -d labelcloud"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  labelcloud-postgres:

@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: labelcloud-backend
+  autoconfigure:
+    exclude: org.springframework.boot.security.autoconfigure.UserDetailsServiceAutoConfiguration
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5433/labelcloud}
+    username: ${DATABASE_USERNAME:labelcloud}
+    password: ${DATABASE_PASSWORD:labelcloud}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+
+server:
+  error:
+    include-message: never
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+labelcloud:
+  web:
+    allowed-origins: ${ALLOWED_ORIGINS:http://localhost:3000}
