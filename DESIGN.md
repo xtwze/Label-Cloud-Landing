@@ -76,7 +76,7 @@ The product deliberately rejects chrome, robotic geometry and dense sci-fi dashb
 - Near-black tonal surfaces with warm off-white type.
 - Oversized, tightly tracked headings and quiet supporting copy.
 - One rare lilac signal for focus, icons and selected details.
-- Real music identity assets instead of invented dashboard mockups.
+- Real music identity assets plus workflow-backed product previews; synthetic demo records are always identified as such.
 - One continuous vinyl object whose rotation and restrained movement mirror progress through the label workflow.
 
 ## Colors
@@ -123,7 +123,7 @@ The palette uses the tonal range of black vinyl and warm printed paper; lilac is
 
 ## Layout
 
-Content lives inside a fluid 1320px maximum shell with 24px desktop side insets, tightening to 16px on mobile. Sections use generous vertical breathing room, asymmetric two-column editorial compositions and a 12-column capability grid. Below 900px, complex layouts collapse to one column; below 640px, actions and fields become full-width and navigation is reduced to brand plus primary action.
+Content lives inside a fluid 1320px maximum shell with 24px desktop side insets, tightening to 16px on mobile. Sections use generous vertical breathing room, asymmetric two-column editorial compositions and a 12-column capability grid. Below 900px, complex layouts collapse to one column; below 640px, actions and fields become full-width and public navigation is reduced to brand plus primary action. The product preview becomes edge-to-edge on mobile: workspace selectors stack, the sidebar becomes a two-column module switcher, and secondary row actions yield to primary content and status.
 
 ## Elevation & Depth
 
@@ -168,6 +168,12 @@ Controls use gently rounded 10px corners. Larger surfaces use a restrained 14px 
 
 The desktop header is transparent over the hero, separated by one hairline. Links are small and quiet; the main action is underlined. Mobile removes secondary navigation instead of introducing a menu for three anchors.
 
+### Interactive Product Preview
+
+The public page may contain one Operate-style preview inside the Persuade surface. It is a professional product frame adapted to the landing palette, with two explicit modes: «Кабинет лейбла» and «Кабинет артиста». Each mode owns its module navigation and resets to its overview when the mode changes.
+
+Sample people, releases, balances and report files are synthetic and must carry a visible demo-data label. The royalty-report interaction preserves three legible states—idle selection, disabled processing and ready confirmation—without implying that a real file was uploaded or a customer result was produced.
+
 ## Do's and Don'ts
 
 ### Do:
@@ -176,10 +182,11 @@ The desktop header is transparent over the hero, separated by one hairline. Link
 - **Do** keep copy factual, short and visibly hierarchical.
 - **Do** use transforms and opacity for motion and honor reduced-motion preferences.
 - **Do** preserve warm paper type against near-black surfaces.
+- **Do** keep the product preview task-oriented: mode, module, content and status should remain clear at every viewport.
 
 ### Don't:
 
 - **Don't** add chrome, robots, neon circuitry or transformer-like 3D objects.
 - **Don't** turn each section into a bordered card.
 - **Don't** add multiple accent colors or decorative gradients.
-- **Don't** fabricate client metrics, admin screenshots or product outcomes.
+- **Don't** present synthetic preview records, balances or processing results as customer data or production outcomes.

@@ -12,6 +12,7 @@ import {
 
 import { EnquiryForm } from "@/components/enquiry-form";
 import { MotionFrame } from "@/components/motion-frame";
+import { ProductDemo } from "@/components/product-demo";
 import { YandexMetrica } from "@/components/yandex-metrica";
 
 const capabilities = [
@@ -46,6 +47,7 @@ export default function Home() {
         </a>
         <nav className="desktop-nav" aria-label="Основная навигация">
           <a href="#platform">Платформа</a>
+          <a href="#demo">Демо</a>
           <a href="#approach">Подход</a>
         </nav>
         <a className="header-cta" href="#contact">Оставить заявку</a>
@@ -93,6 +95,8 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        <ProductDemo />
 
         <section className="workflow" aria-labelledby="workflow-title">
           <div className="workflow-sticky section-shell">
