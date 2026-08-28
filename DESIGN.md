@@ -168,11 +168,19 @@ Controls use gently rounded 10px corners. Larger surfaces use a restrained 14px 
 
 The desktop header is transparent over the hero, separated by one hairline. Links are small and quiet; the main action is underlined. Mobile removes secondary navigation instead of introducing a menu for three anchors.
 
+### Lyric Guard
+
+Lyric Guard is a minimal product block, not a separate visual world. A sparse circular shield marker, short category list and compact demonstration result explain local, context-aware text checking within the same near-black, warm-paper and lilac system. Risk levels remain technical signals for human review; the block must retain the disclaimer «Технический индикатор риска, не юридическая экспертиза.»
+
 ### Interactive Product Preview
 
-The public page may contain one Operate-style preview inside the Persuade surface. It is a professional product frame adapted to the landing palette, with two explicit modes: «Кабинет лейбла» and «Кабинет артиста». Each mode owns its module navigation and resets to its overview when the mode changes.
+The public page may contain one Operate-style preview inside the Persuade surface. It is a professional product frame adapted to the landing palette, with two explicit modes: «Кабинет лейбла» and «Кабинет артиста». Each mode owns its module navigation and resets to its overview when the mode changes. The label account remains white-label as «Ваш лейбл»; the artist demonstration uses the KONSTANTINOV identity with the simple role «Артист». A playful label-only control may open the personalized-functionality screen while retaining the same visual treatment as the standard navigation buttons.
 
-Sample people, releases, balances and report files are synthetic and must carry a visible demo-data label. The royalty-report interaction preserves three legible states—idle selection, disabled processing and ready confirmation—without implying that a real file was uploaded or a customer result was produced.
+The label overview may combine compact demo statistics with two deliberately different chart semantics: period-switchable activity values and a cumulative total that never resets between periods. Artist overview actions are direct shortcuts into a new release, the current draft and the label chat; they do not duplicate passive summary cards.
+
+New release starts with an explicit choice between a single and an album / EP. The single keeps one five-stage path—WAV, track metadata, release metadata, promo and lyrics—ending in a moderation result. The album separates general release data from its tracklist. Track order uses Pointer Events on a dedicated handle and GSAP Flip for live spatial preview; the handle suppresses native touch gestures while held (`touch-action: none`). Separate move arrows stay visually hidden, while Arrow Up / Arrow Down on the focused handle, descriptive labels and a polite live announcement preserve keyboard and screen-reader access. Required audio and cover selections gate continuation.
+
+Sample people, releases, balances and report files are synthetic and must carry a visible demo-data label. Simulated file selectors change local demo state only and explicitly say when nothing is uploaded. The royalty-report interaction preserves three legible states—idle selection, disabled processing and ready confirmation—without implying that a real file was uploaded or a customer result was produced. One clearly labeled demo chat is shared by the label and artist workspaces: perspective determines incoming and outgoing bubbles, messages update local demo state, and unread badges clear on opening and increment for the opposite workspace. This pattern demonstrates interaction only and must not imply WebSocket, persistence or backend delivery.
 
 ## Do's and Don'ts
 
@@ -183,6 +191,7 @@ Sample people, releases, balances and report files are synthetic and must carry 
 - **Do** use transforms and opacity for motion and honor reduced-motion preferences.
 - **Do** preserve warm paper type against near-black surfaces.
 - **Do** keep the product preview task-oriented: mode, module, content and status should remain clear at every viewport.
+- **Do** pair pointer-driven spatial reordering with a focusable handle, keyboard arrow commands and live position announcements.
 
 ### Don't:
 

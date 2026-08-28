@@ -7,6 +7,7 @@ import {
   Headphones,
   IdentificationCard,
   PaperPlaneTilt,
+  ShieldCheck,
   SlidersHorizontal,
 } from "@phosphor-icons/react/dist/ssr";
 
@@ -98,6 +99,28 @@ export default function Home() {
 
         <ProductDemo />
 
+        <section className="lyric-guard section-shell reveal-section" aria-labelledby="lyric-guard-title">
+          <div className="lyric-guard-mark" aria-hidden="true">
+            <span><ShieldCheck size={82} weight="light" /></span>
+            <strong>LG</strong>
+          </div>
+          <div className="lyric-guard-copy">
+            <h2 id="lyric-guard-title">Lyric Guard проверяет текст до отправки</h2>
+            <p>Система находит рискованные фрагменты, анализирует контекст и отдельно отмечает ненормативную лексику.</p>
+            <div className="lyric-guard-topics" aria-label="Примеры категорий проверки">
+              <span>Наркотики</span><span>Экстремизм</span><span>Насилие</span><span>Саморазрушительное поведение</span>
+            </div>
+            <small>Технический индикатор риска, не юридическая экспертиза.</small>
+          </div>
+          <div className="lyric-guard-result" aria-label="Демонстрационный результат Lyric Guard">
+            <div><span>Демонстрационная проверка</span><strong>Нужна ручная проверка</strong></div>
+            <ol>
+              <li><span>12</span><p>Неоднозначный фрагмент. Система передала контекст модератору.</p><b>Средний риск</b></li>
+              <li><span>28</span><p>Запрещённых тем в контексте не найдено.</p><b>Низкий риск</b></li>
+            </ol>
+          </div>
+        </section>
+
         <section className="workflow" aria-labelledby="workflow-title">
           <div className="workflow-sticky section-shell">
             <div className="workflow-copy">
@@ -119,6 +142,7 @@ export default function Home() {
           <div className="custom-statement"><h2>Не подгоняем лейбл под чужую схему.</h2></div>
           <div className="custom-copy">
             <p>Настроим поля, документы, роли и этапы работы под ваши правила. Добавим необходимые функции и встроим их в общий процесс.</p>
+            <p className="custom-landing">Разработаем отдельный лендинг под ваш бренд, домен и визуальный язык. Для артистов это будет выглядеть как собственная система вашего лейбла.</p>
             <a href="#contact" className="text-link">Обсудить свой сценарий <ArrowUpRight size={18} aria-hidden="true" /></a>
           </div>
         </section>
