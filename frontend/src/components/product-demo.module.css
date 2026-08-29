@@ -102,6 +102,8 @@
 }
 
 .demoSidebar {
+  position: relative;
+  z-index: 2;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -264,6 +266,22 @@
 
 .navLabel { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .navBadge { min-width: 21px; height: 21px; display: inline-grid; place-items: center; padding-inline: 6px; border-radius: 999px; background: var(--accent); color: #171615; font-size: 0.62rem; font-weight: 750; font-variant-numeric: tabular-nums; }
+
+.mascotTrigger { position: relative; margin-top: 5px; }
+.mascotTrigger > button { width: 100%; position: relative; z-index: 2; }
+.mascotStage { position: absolute; z-index: 1; left: 0; top: 42px; width: 100%; height: 390px; pointer-events: none; }
+.mascotSprite { position: absolute; z-index: 2; top: -62px; left: 27px; width: 140px; aspect-ratio: 5 / 12; visibility: hidden; background: url("/images/labelcloud-mascot-knock-sprite.png") 0 0 / 600% 100% no-repeat; filter: drop-shadow(0 18px 20px rgb(0 0 0 / 44%)); will-change: transform, opacity, background-position; }
+.mascotPlaying {
+  animation:
+    mascotIntro 0.32s steps(1, end) forwards,
+    mascotTapLoop 0.96s steps(3, end) 0.32s infinite;
+}
+@keyframes mascotIntro { from { background-position: 0 0; } to { background-position: 20% 0; } }
+@keyframes mascotTapLoop { from { background-position: 40% 0; } to { background-position: 100% 0; } }
+.mascotBurst { position: absolute; z-index: 1; width: 34px; height: 11px; border-radius: 4px; background: var(--accent); visibility: hidden; will-change: transform, opacity; }
+.mascotBurst:nth-child(1) { top: 48px; left: 18px; }
+.mascotBurst:nth-child(2) { top: 86px; right: 4px; width: 24px; height: 24px; border: 6px solid var(--paper); border-radius: 50%; background: transparent; }
+.mascotBurst:nth-child(3) { top: 126px; left: 4px; width: 18px; height: 46px; background: #d8ceff; }
 
 .demoSidebar > p {
   margin: auto 8px 0;
@@ -600,17 +618,20 @@
 
 .customFeaturePanel {
   min-height: 470px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: minmax(160px, 0.72fr) minmax(0, 1.55fr);
+  align-items: center;
+  gap: clamp(22px, 5vw, 64px);
   margin-top: 34px;
   padding: clamp(28px, 6vw, 64px);
   border-radius: var(--radius-card);
   background: #20201f;
 }
 
-.customFeaturePanel > svg { color: var(--accent); }
+.customFeatureMascot { align-self: end; overflow: hidden; filter: drop-shadow(0 28px 34px rgb(0 0 0 / 42%)); }
+.customFeatureMascot img { width: 100%; height: auto; transform: translateY(9%); }
+.customFeatureCopy { min-width: 0; }
+.customFeatureCopy > svg { color: var(--accent); }
 .customFeaturePanel h5 { max-width: 640px; margin: 28px 0 0; font-size: clamp(1.7rem, 4vw, 3.4rem); font-weight: 570; letter-spacing: -0.04em; line-height: 1.04; }
 .customFeaturePanel p { max-width: 58ch; margin: 20px 0 0; color: #aaa9a2; font-size: 0.84rem; line-height: 1.65; }
 .customFeaturePanel a { min-height: 44px; display: inline-flex; align-items: center; gap: 8px; margin-top: 30px; padding: 0 16px; border-radius: var(--radius-control); background: var(--paper); color: var(--ink); font-size: 0.72rem; font-weight: 700; text-decoration: none; }
@@ -1111,6 +1132,7 @@
   .workspaceTabActive { min-height: 76px; padding: 14px 16px; }
   .productFrame { min-height: 650px; grid-template-columns: minmax(0, 1fr); margin-top: 12px; border-right: 0; border-left: 0; border-radius: 0; }
   .demoSidebar { overflow: hidden; padding: 16px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .mascotStage { display: none; }
   .sidebarBrand,
   .profile,
   .demoSidebar > p { display: none; }
@@ -1171,7 +1193,7 @@
   .chatComposer button { justify-content: center; }
   .artistNextStep { grid-template-columns: 40px minmax(0, 1fr); }
   .artistNextStep button { grid-column: 1 / -1; width: 100%; }
-  .customFeaturePanel { min-height: 390px; margin-top: 26px; padding: 24px; }
+  .customFeaturePanel { min-height: 390px; grid-template-columns: 112px minmax(0, 1fr); gap: 18px; margin-top: 26px; padding: 24px; }
   .releaseFlowHeading { grid-template-columns: 38px minmax(0, 1fr); }
   .releaseFlowHeading .demoData { width: auto; grid-column: 1 / -1; order: initial; }
   .releaseRoadmap { padding: 12px 7px; }
@@ -1186,6 +1208,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .mascotPlaying { animation: none; background-position: 100% 0; }
   .screenBody { animation: none; }
   .chart span,
   .switchOff,

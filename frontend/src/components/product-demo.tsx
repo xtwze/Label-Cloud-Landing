@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { ComponentType } from "react";
 import { flushSync } from "react-dom";
@@ -123,6 +124,75 @@ function Status({ tone, children }: { tone: string; children: React.ReactNode })
   return <span className={`${styles.status} ${styles[tone]}`}>{children}</span>;
 }
 
+function CustomFeatureNavButton({ active, onClick }: { active: boolean; onClick: () => void }) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const mascotRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
+  const buttonLoopRef = useRef<gsap.core.Timeline | null>(null);
+  const [mascotPlaying, setMascotPlaying] = useState(false);
+  useGSAP(() => {
+    const mascot = mascotRef.current;
+    const button = buttonRef.current;
+    if (!mascot || !button) return;
+
+    const marks = rootRef.current?.querySelectorAll(`.${styles.mascotBurst}`);
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    gsap.set(mascot, { autoAlpha: 0, x: 34, y: -18, scale: 0.72, rotation: 5, transformOrigin: "50% 0%" });
+    if (marks) gsap.set(marks, { autoAlpha: 0, scale: 0, rotation: -24 });
+    if (reduceMotion) {
+      gsap.set(mascot, { autoAlpha: 1, x: 0, y: 0, scale: 1, rotation: 0 });
+      return;
+    }
+
+    timelineRef.current = gsap.timeline({ paused: true, defaults: { overwrite: "auto" } })
+      .to(mascot, { autoAlpha: 1, x: 0, y: 0, scale: 1, rotation: 0, duration: 0.34, ease: "back.out(1.7)" }, 0)
+      .to(marks ?? [], { autoAlpha: 1, scale: 1, rotation: (index) => [-12, 18, 32][index] ?? 0, duration: 0.22, stagger: 0.04, ease: "back.out(2.5)" }, 0.12);
+
+    buttonLoopRef.current = gsap.timeline({ paused: true, repeat: -1, delay: 0.32, defaults: { overwrite: "auto" } })
+      .to(button, { y: 3, scaleX: 0.97, scaleY: 0.9, duration: 0.06, ease: "power2.in" }, 0.24)
+      .to(button, { y: 0, scaleX: 1, scaleY: 1, duration: 0.14, ease: "back.out(3)" }, 0.3)
+      .to(button, { y: 3, scaleX: 0.97, scaleY: 0.9, duration: 0.06, ease: "power2.in" }, 0.72)
+      .to(button, { y: 0, scaleX: 1, scaleY: 1, duration: 0.14, ease: "elastic.out(1, 0.45)" }, 0.78)
+      .to(button, { y: 0, scaleX: 1, scaleY: 1, duration: 0.04 }, 0.92);
+
+    return () => {
+      timelineRef.current?.kill();
+      timelineRef.current = null;
+      buttonLoopRef.current?.kill();
+      buttonLoopRef.current = null;
+    };
+  }, { scope: rootRef });
+
+  function reveal() {
+    setMascotPlaying(false);
+    window.requestAnimationFrame(() => setMascotPlaying(true));
+    timelineRef.current?.restart();
+    buttonLoopRef.current?.restart();
+  }
+  function hide() {
+    setMascotPlaying(false);
+    buttonLoopRef.current?.pause(0);
+    if (buttonRef.current) gsap.set(buttonRef.current, { y: 0, scaleX: 1, scaleY: 1 });
+    timelineRef.current?.reverse();
+  }
+  function touchReveal(event: React.PointerEvent<HTMLButtonElement>) {
+    if (event.pointerType === "touch") timelineRef.current?.restart();
+  }
+
+  return (
+    <div className={styles.mascotTrigger} ref={rootRef} onPointerEnter={reveal} onPointerLeave={hide}>
+      <button ref={buttonRef} type="button" className={active ? styles.navActive : styles.navButton} onClick={onClick} onFocus={reveal} onBlur={hide} onPointerDown={touchReveal}>
+        <Sparkle size={18} weight="light" /> <span className={styles.navLabel}>Нажми на меня</span>
+      </button>
+      <div className={styles.mascotStage} aria-hidden="true">
+        <span className={styles.mascotBurst} /><span className={styles.mascotBurst} /><span className={styles.mascotBurst} />
+        <div ref={mascotRef} className={`${styles.mascotSprite} ${mascotPlaying ? styles.mascotPlaying : ""}`} />
+      </div>
+    </div>
+  );
+}
+
 function LabelOverview() {
   const [period, setPeriod] = useState<DashboardPeriod>("month");
   const values = dashboardSeries[period];
@@ -198,10 +268,15 @@ function LabelCustomFeature() {
         <span className={styles.demoData}>Персональная разработка</span>
       </div>
       <div className={styles.customFeaturePanel}>
-        <Sparkle size={34} weight="light" />
-        <h5>Реализуем нужный вам функционал</h5>
-        <p>Опишите особый процесс, правило или рабочий сценарий. Мы встроим его в систему персонально под ваш лейбл.</p>
-        <a href="#contact">Обсудить свой сценарий <ArrowRight size={16} /></a>
+        <div className={styles.customFeatureMascot} aria-hidden="true">
+          <Image src="/images/labelcloud-graffiti-mascot.png" alt="" width={512} height={768} sizes="220px" />
+        </div>
+        <div className={styles.customFeatureCopy}>
+          <Sparkle size={34} weight="light" />
+          <h5>Реализуем нужный вам функционал</h5>
+          <p>Опишите особый процесс, правило или рабочий сценарий. Мы встроим его в систему персонально под ваш лейбл.</p>
+          <a href="#contact">Обсудить свой сценарий <ArrowRight size={16} /></a>
+        </div>
       </div>
     </div>
   );
@@ -812,9 +887,7 @@ export function ProductDemo() {
             )})}
           </nav>
           {workspace === "label" && (
-            <button type="button" className={activePage === "custom" ? styles.navActive : styles.navButton} onClick={() => setActivePage("custom")}>
-              <Sparkle size={18} weight="light" /> Нажми на меня
-            </button>
+            <CustomFeatureNavButton active={activePage === "custom"} onClick={() => setActivePage("custom")} />
           )}
           <p>Интерактивная демонстрация</p>
         </aside>

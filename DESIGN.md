@@ -170,11 +170,13 @@ The desktop header is transparent over the hero, separated by one hairline. Link
 
 ### Lyric Guard
 
-Lyric Guard is a minimal product block, not a separate visual world. A sparse circular shield marker, short category list and compact demonstration result explain local, context-aware text checking within the same near-black, warm-paper and lilac system. Risk levels remain technical signals for human review; the block must retain the disclaimer «Технический индикатор риска, не юридическая экспертиза.»
+Lyric Guard is a minimal product block, not a separate visual world. A sparse circular shield marker without lettering, short category list and compact demonstration result explain the in-house, local, context-aware text check within the same near-black, warm-paper and lilac system. The copy may state that political statements are one of the checked categories, the system is continuously improved and Lyric Guard is included in the base subscription. Risk levels remain technical signals for human review; the block must retain the disclaimer «Технический индикатор риска, не юридическая экспертиза.»
 
 ### Interactive Product Preview
 
-The public page may contain one Operate-style preview inside the Persuade surface. It is a professional product frame adapted to the landing palette, with two explicit modes: «Кабинет лейбла» and «Кабинет артиста». Each mode owns its module navigation and resets to its overview when the mode changes. The label account remains white-label as «Ваш лейбл»; the artist demonstration uses the KONSTANTINOV identity with the simple role «Артист». A playful label-only control may open the personalized-functionality screen while retaining the same visual treatment as the standard navigation buttons.
+The public page may contain one Operate-style preview inside the Persuade surface. It is a professional product frame adapted to the landing palette, with two explicit modes: «Кабинет лейбла» and «Кабинет артиста». Each mode owns its module navigation and resets to its overview when the mode changes. The label account remains white-label as «Ваш лейбл»; the artist demonstration uses the KONSTANTINOV identity with the simple role «Артист».
+
+The label-only custom-feature navigation control uses the project mascot plus `/images/labelcloud-mascot-knock-sprite.png`, a six-frame transparent sprite sheet. On desktop, hover and keyboard focus reveal the upright vinyl-headed character entirely inside the empty lower part of the sidebar. Frames one and two introduce the character once; frames three through six then loop for as long as hover or focus remains. Its torso turns toward the control and one clear hand reaches up-left for two fingertip contacts per loop; a synchronized GSAP loop briefly depresses and rebounds the actual button at both contacts. Leaving or blurring the control stops both loops and resets the button. The opened custom-feature screen keeps the mascot in the free left visual column and the offer copy in the right column. Reduced-motion users see a still final pose, and the hover stage is hidden on mobile where hover is unavailable.
 
 The label overview may combine compact demo statistics with two deliberately different chart semantics: period-switchable activity values and a cumulative total that never resets between periods. Artist overview actions are direct shortcuts into a new release, the current draft and the label chat; they do not duplicate passive summary cards.
 
@@ -199,3 +201,4 @@ Sample people, releases, balances and report files are synthetic and must carry 
 - **Don't** turn each section into a bordered card.
 - **Don't** add multiple accent colors or decorative gradients.
 - **Don't** present synthetic preview records, balances or processing results as customer data or production outcomes.
+- **Don't** treat framework development indicators as product UI; the Next.js development indicator is disabled.

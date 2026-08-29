@@ -102,15 +102,18 @@ export default function Home() {
         <section className="lyric-guard section-shell reveal-section" aria-labelledby="lyric-guard-title">
           <div className="lyric-guard-mark" aria-hidden="true">
             <span><ShieldCheck size={82} weight="light" /></span>
-            <strong>LG</strong>
           </div>
           <div className="lyric-guard-copy">
             <h2 id="lyric-guard-title">Lyric Guard проверяет текст до отправки</h2>
-            <p>Система находит рискованные фрагменты, анализирует контекст и отдельно отмечает ненормативную лексику.</p>
+            <p>Наша собственная разработка находит рискованные фрагменты, анализирует контекст и отдельно отмечает ненормативную лексику.</p>
             <div className="lyric-guard-topics" aria-label="Примеры категорий проверки">
-              <span>Наркотики</span><span>Экстремизм</span><span>Насилие</span><span>Саморазрушительное поведение</span>
+              <span>Наркотики</span><span>Экстремизм</span><span>Политические высказывания</span><span>Насилие</span><span>Саморазрушительное поведение</span>
             </div>
-            <small>Технический индикатор риска, не юридическая экспертиза.</small>
+            <div className="lyric-guard-notes">
+              <strong>Входит в базовую подписку</strong>
+              <small>Мы постоянно улучшаем систему и качество проверки.</small>
+              <small>Технический индикатор риска, не юридическая экспертиза.</small>
+            </div>
           </div>
           <div className="lyric-guard-result" aria-label="Демонстрационный результат Lyric Guard">
             <div><span>Демонстрационная проверка</span><strong>Нужна ручная проверка</strong></div>
