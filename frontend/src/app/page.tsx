@@ -1,11 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
+  Archive,
   ArrowUpRight,
-  Bank,
+  ChatCircleDots,
   FileText,
-  Headphones,
-  IdentificationCard,
   PaperPlaneTilt,
   ShieldCheck,
   SlidersHorizontal,
@@ -17,12 +16,47 @@ import { ProductDemo } from "@/components/product-demo";
 import { YandexMetrica } from "@/components/yandex-metrica";
 
 const capabilities = [
-  { icon: IdentificationCard, title: "Артисты", text: "Единые карточки, документы, реквизиты и история работы." },
-  { icon: Headphones, title: "Релизы", text: "Артисты загружают треки и материалы прямо в кабинет вашего лейбла." },
-  { icon: FileText, title: "Договоры", text: "Ваши шаблоны договоров и полный документооборот внутри платформы." },
-  { icon: PaperPlaneTilt, title: "Отгрузка", text: "Команда проверяет релиз и передаёт его дистрибьютору через платформу." },
-  { icon: SlidersHorizontal, title: "Отчёты", text: "Автоматическая обработка отчётов дистрибьютора и распределение по артистам." },
-  { icon: Bank, title: "Балансы", text: "Начисления, выплаты и понятная финансовая картина артиста." },
+  {
+    icon: PaperPlaneTilt,
+    title: "Приём релизов",
+    lead: [
+      "Трек — в переписке.",
+      "Обложка — на диске.",
+      "Менеджер вручную проверяет каждый релиз.",
+      "Знакомо?",
+    ],
+    text: "LabelCloud собирает аудио, обложку и данные в одном окне, проверяет комплектность и требования ещё при загрузке. Артист отправляет готовый релиз — менеджеру остаётся его модерировать.",
+  },
+  {
+    icon: FileText,
+    title: "Договоры",
+    lead: null,
+    text: "Система собирает данные и формирует договоры по шаблонам вашего лейбла.",
+  },
+  {
+    icon: SlidersHorizontal,
+    title: "Квартальные отчёты",
+    lead: null,
+    text: "Загрузите отчёт агрегатора — алгоритм разберёт его и распределит начисления по артистам.",
+  },
+  {
+    icon: Archive,
+    title: "Единый архив",
+    lead: null,
+    text: "Релизы, договоры и связанные материалы сохраняются в общей истории и доступны в любой момент.",
+  },
+  {
+    icon: ChatCircleDots,
+    title: "Связь с артистами",
+    lead: null,
+    text: "Внутренний чат сохраняет рабочую переписку рядом с данными артиста.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Модерация лейблом",
+    lead: null,
+    text: "Менеджеры вашего лейбла сами проверяют материалы и ведут релизы по своим правилам.",
+  },
 ];
 
 const workflow = [
@@ -59,7 +93,7 @@ export default function Home() {
           <div className="hero-content">
             <p className="hero-kicker hero-reveal">B2B-платформа для музыкальных лейблов</p>
             <h1 id="hero-title" className="hero-title hero-reveal">Операционная система музыкального лейбла</h1>
-            <p className="hero-copy hero-reveal">Артисты загружают треки и документы. Лейбл ведёт релизы, отчёты и выплаты в одном кабинете.</p>
+            <p className="hero-copy hero-reveal">Артисты загружают треки и документы. Лейбл ведёт релизы, договоры и квартальную отчётность в одном кабинете.</p>
             <div className="hero-actions hero-reveal">
               <a className="button button-primary" href="#contact">Оставить заявку</a>
               <a className="button button-quiet" href="#platform">Как это работает</a>
@@ -84,14 +118,24 @@ export default function Home() {
         <section id="platform" className="capabilities section-shell" aria-labelledby="capabilities-title">
           <div className="section-heading reveal-section">
             <h2 id="capabilities-title">Весь рабочий контур</h2>
-            <p>Базовые функции остаются вместе. Платформа не превращает нормальную работу в набор платных ограничений.</p>
+            <p>Ежедневная работа лейбла в одной системе: от приёма релиза и договора до квартального отчёта и архива.</p>
           </div>
           <div className="capability-grid">
-            {capabilities.map(({ icon: Icon, title, text }, index) => (
+            {capabilities.map(({ icon: Icon, title, lead, text }, index) => (
               <article className={`capability capability-${index + 1}`} key={title}>
-                <Icon size={28} weight="light" aria-hidden="true" />
+                {index > 0 && <Icon size={28} weight="light" aria-hidden="true" />}
                 <h3>{title}</h3>
-                <p>{text}</p>
+                {lead && (
+                  <strong className="release-lead">
+                    {lead.map((part) => <span key={part}>{part} </span>)}
+                  </strong>
+                )}
+                {lead ? (
+                  <div className="capability-answer">
+                    <span>С LabelCloud</span>
+                    <p>{text}</p>
+                  </div>
+                ) : <p>{text}</p>}
               </article>
             ))}
           </div>
@@ -159,9 +203,10 @@ export default function Home() {
         </section>
 
         <section className="pricing section-shell reveal-section">
-          <h2>Платформа под задачи вашего лейбла</h2>
-          <p>Количество артистов, объём каталога и набор функций определяют конфигурацию LabelCloud.</p>
-          <a className="button button-primary" href="#contact">Получить предложение</a>
+          <p className="pricing-kicker">Первые партнёры LabelCloud</p>
+          <h2>Сейчас подключаем несколько лейблов</h2>
+          <p>Формируем круг команд для долгосрочной работы. Для первых лейблов действуют специальные условия запуска.</p>
+          <a className="button button-primary" href="#contact">Обсудить подключение</a>
         </section>
 
         <section id="contact" className="contact section-shell" aria-labelledby="contact-title">

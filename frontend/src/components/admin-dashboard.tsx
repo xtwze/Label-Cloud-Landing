@@ -356,7 +356,12 @@ export function AdminDashboard() {
                     <span>{dateFormatter.format(new Date(enquiry.createdAt))}</span>
                   </div>
                   <p className={styles.contactName}>{enquiry.contactName}</p>
-                  {enquiry.comment && <p className={styles.comment}>{enquiry.comment}</p>}
+                  {enquiry.comment && (
+                    <div className={styles.comment}>
+                      <span>Сайт и соцсети</span>
+                      <p>{enquiry.comment}</p>
+                    </div>
+                  )}
                 </div>
 
                 <div className={styles.contacts}>

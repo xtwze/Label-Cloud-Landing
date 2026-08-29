@@ -283,8 +283,22 @@
 }
 
 .comment {
-  display: -webkit-box;
   margin: 22px 0 0;
+}
+
+.comment span {
+  display: block;
+  margin-bottom: 5px;
+  color: #77766f;
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.comment p {
+  display: -webkit-box;
+  margin: 0;
   overflow: hidden;
   color: #aaa9a2;
   font-size: 0.84rem;

@@ -81,8 +81,12 @@ export function EnquiryForm() {
         <Field label="Telegram" error={errors.telegram?.message}>
           <input autoComplete="off" placeholder="@username" {...register("telegram")} />
         </Field>
-        <Field label="Комментарий" error={errors.comment?.message} className="field-wide">
-          <textarea rows={4} placeholder="Расскажите о задачах или текущем процессе" {...register("comment")} />
+        <Field label="Сайт и соцсети лейбла" error={errors.comment?.message} className="field-wide">
+          <textarea
+            rows={3}
+            placeholder="Ссылки на сайт, VK, Telegram, YouTube — если есть"
+            {...register("comment")}
+          />
         </Field>
       </div>
       <div className="honeypot" aria-hidden="true">
