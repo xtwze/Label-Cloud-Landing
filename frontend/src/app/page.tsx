@@ -1,69 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Archive,
-  ArrowUpRight,
-  ChatCircleDots,
-  FileText,
-  PaperPlaneTilt,
-  ShieldCheck,
-  SlidersHorizontal,
-} from "@phosphor-icons/react/dist/ssr";
+import { ArrowUpRight, Gift } from "@phosphor-icons/react/dist/ssr";
 
+import { CapabilitiesShowcase } from "@/components/capabilities-showcase";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { MotionFrame } from "@/components/motion-frame";
 import { ProductDemo } from "@/components/product-demo";
 import { YandexMetrica } from "@/components/yandex-metrica";
-
-const capabilities = [
-  {
-    icon: PaperPlaneTilt,
-    title: "Приём релизов",
-    lead: [
-      "Трек — в переписке.",
-      "Обложка — на диске.",
-      "Менеджер вручную проверяет каждый релиз.",
-      "Знакомо?",
-    ],
-    text: "LabelCloud собирает аудио, обложку и данные в одном окне, проверяет комплектность и требования ещё при загрузке. Артист отправляет готовый релиз — менеджеру остаётся его модерировать.",
-  },
-  {
-    icon: FileText,
-    title: "Договоры",
-    lead: null,
-    text: "Система собирает данные и формирует договоры по шаблонам вашего лейбла.",
-  },
-  {
-    icon: SlidersHorizontal,
-    title: "Квартальные отчёты",
-    lead: null,
-    text: "Загрузите отчёт агрегатора — алгоритм разберёт его и распределит начисления по артистам.",
-  },
-  {
-    icon: Archive,
-    title: "Единый архив",
-    lead: null,
-    text: "Релизы, договоры и связанные материалы сохраняются в общей истории и доступны в любой момент.",
-  },
-  {
-    icon: ChatCircleDots,
-    title: "Связь с артистами",
-    lead: null,
-    text: "Внутренний чат сохраняет рабочую переписку рядом с данными артиста.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Модерация лейблом",
-    lead: null,
-    text: "Менеджеры вашего лейбла сами проверяют материалы и ведут релизы по своим правилам.",
-  },
-];
-
-const workflow = [
-  ["Соберите данные", "Артист заполняет только те поля, которые нужны вашему лейблу."],
-  ["Сформируйте документы", "Данные автоматически подставляются в ваши договоры и документы."],
-  ["Загрузите отчёт", "Система автоматически обработает отчёт дистрибьютора и распределит начисления по артистам."],
-];
 
 export default function Home() {
   return (
@@ -92,7 +35,7 @@ export default function Home() {
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-content">
             <p className="hero-kicker hero-reveal">B2B-платформа для музыкальных лейблов</p>
-            <h1 id="hero-title" className="hero-title hero-reveal">Операционная система музыкального лейбла</h1>
+            <h1 id="hero-title" className="hero-title hero-reveal">Управление музыкальным лейблом</h1>
             <p className="hero-copy hero-reveal">Артисты загружают треки и документы. Лейбл ведёт релизы, договоры и квартальную отчётность в одном кабинете.</p>
             <div className="hero-actions hero-reveal">
               <a className="button button-primary" href="#contact">Оставить заявку</a>
@@ -115,74 +58,33 @@ export default function Home() {
           <p>Личный кабинет дистрибьютора, собранный для вашего лейбла: артисты загружают треки и документы, команда ведёт релизы, договоры и отчётность.</p>
         </section>
 
-        <section id="platform" className="capabilities section-shell" aria-labelledby="capabilities-title">
-          <div className="section-heading reveal-section">
-            <h2 id="capabilities-title">Весь рабочий контур</h2>
-            <p>Ежедневная работа лейбла в одной системе: от приёма релиза и договора до квартального отчёта и архива.</p>
-          </div>
-          <div className="capability-grid">
-            {capabilities.map(({ icon: Icon, title, lead, text }, index) => (
-              <article className={`capability capability-${index + 1}`} key={title}>
-                {index > 0 && <Icon size={28} weight="light" aria-hidden="true" />}
-                <h3>{title}</h3>
-                {lead && (
-                  <strong className="release-lead">
-                    {lead.map((part) => <span key={part}>{part} </span>)}
-                  </strong>
-                )}
-                {lead ? (
-                  <div className="capability-answer">
-                    <span>С LabelCloud</span>
-                    <p>{text}</p>
-                  </div>
-                ) : <p>{text}</p>}
-              </article>
-            ))}
-          </div>
-        </section>
+        <CapabilitiesShowcase />
 
         <ProductDemo />
 
-        <section className="lyric-guard section-shell reveal-section" aria-labelledby="lyric-guard-title">
-          <div className="lyric-guard-mark" aria-hidden="true">
-            <span><ShieldCheck size={82} weight="light" /></span>
-          </div>
-          <div className="lyric-guard-copy">
-            <h2 id="lyric-guard-title">Lyric Guard проверяет текст до отправки</h2>
-            <p>Наша собственная разработка находит рискованные фрагменты, анализирует контекст и отдельно отмечает ненормативную лексику.</p>
-            <div className="lyric-guard-topics" aria-label="Примеры категорий проверки">
-              <span>Наркотики</span><span>Экстремизм</span><span>Политические высказывания</span><span>Насилие</span><span>Саморазрушительное поведение</span>
-            </div>
-            <div className="lyric-guard-notes">
-              <strong>Входит в базовую подписку</strong>
-              <small>Мы постоянно улучшаем систему и качество проверки.</small>
-              <small>Технический индикатор риска, не юридическая экспертиза.</small>
-            </div>
-          </div>
-          <div className="lyric-guard-result" aria-label="Демонстрационный результат Lyric Guard">
-            <div><span>Демонстрационная проверка</span><strong>Нужна ручная проверка</strong></div>
-            <ol>
-              <li><span>12</span><p>Неоднозначный фрагмент. Система передала контекст модератору.</p><b>Средний риск</b></li>
-              <li><span>28</span><p>Запрещённых тем в контексте не найдено.</p><b>Низкий риск</b></li>
-            </ol>
-          </div>
-        </section>
-
-        <section className="workflow" aria-labelledby="workflow-title">
-          <div className="workflow-sticky section-shell">
-            <div className="workflow-copy">
-              <h2 id="workflow-title">Один путь. От знакомства до выплаты.</h2>
-              <p>Состояние не теряется между отделами, файлами и каналами связи.</p>
-            </div>
-            <div className="workflow-track" aria-label="Рабочий процесс LabelCloud">
-              {workflow.map(([title, text]) => (
-                <article className="workflow-item" key={title}>
-                  <h3>{title}</h3>
-                  <p>{text}</p>
-                </article>
-              ))}
-            </div>
-          </div>
+        <section className="lyric-guard-section">
+          <aside className="lyric-guard-bonus section-shell reveal-section" aria-labelledby="lyric-guard-title">
+              <div className="lyric-guard-bonus-copy">
+                <div className="lyric-guard-gift-mark"><Gift size={28} weight="light" aria-hidden="true" /><span>Отдельный продукт</span></div>
+                <strong className="lyric-guard-gift">В подарок</strong>
+                <h3 id="lyric-guard-title">Lyric Guard входит в LabelCloud</h3>
+                <p>Проверяет тексты до модерации, находит рискованные фрагменты, учитывает контекст и отдельно отмечает ненормативную лексику.</p>
+                <div className="lyric-guard-topics" aria-label="Примеры категорий проверки">
+                  <span>Наркотики</span><span>Экстремизм</span><span>Политические высказывания</span><span>Насилие</span><span>Саморазрушительное поведение</span>
+                </div>
+                <div className="lyric-guard-notes">
+                  <strong>Все функции Lyric Guard доступны вместе с LabelCloud без дополнительной оплаты.</strong>
+                  <small>Технический индикатор риска, не юридическая экспертиза.</small>
+                </div>
+              </div>
+              <div className="lyric-guard-result" aria-label="Демонстрационный результат Lyric Guard">
+                <div><span>Демонстрационная проверка</span><strong>Нужна ручная проверка</strong></div>
+                <ol>
+                  <li><span>12</span><p>Неоднозначный фрагмент. Система передала контекст модератору.</p><b>Средний риск</b></li>
+                  <li><span>28</span><p>Запрещённых тем в контексте не найдено.</p><b>Низкий риск</b></li>
+                </ol>
+              </div>
+          </aside>
         </section>
 
         <section id="approach" className="custom section-shell reveal-section">
@@ -194,19 +96,14 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="migration section-shell reveal-section">
-          <div className="migration-number" aria-hidden="true">0 ₽</div>
-          <div>
-            <h2>Переносим стартовую базу бесплатно</h2>
-            <p>Изучим формат ваших данных и перенесём существующих артистов и релизы.</p>
+        <section className="migration-section">
+          <div className="migration section-shell reveal-section">
+            <div className="migration-number" aria-hidden="true">0 ₽</div>
+            <div>
+              <h2>Переносим стартовую базу бесплатно</h2>
+              <p>Изучим формат ваших данных и перенесём существующих артистов и релизы.</p>
+            </div>
           </div>
-        </section>
-
-        <section className="pricing section-shell reveal-section">
-          <p className="pricing-kicker">Первые партнёры LabelCloud</p>
-          <h2>Сейчас подключаем несколько лейблов</h2>
-          <p>Формируем круг команд для долгосрочной работы. Для первых лейблов действуют специальные условия запуска.</p>
-          <a className="button button-primary" href="#contact">Обсудить подключение</a>
         </section>
 
         <section id="contact" className="contact section-shell" aria-labelledby="contact-title">
@@ -225,7 +122,7 @@ export default function Home() {
       <footer className="footer section-shell">
         <div>
           <a className="brand" href="#top">LabelCloud</a>
-          <p>Операционная платформа для музыкальных лейблов.</p>
+          <p>Управление музыкальным лейблом.</p>
         </div>
         <div className="footer-links">
           <Link href="/privacy">Политика обработки данных</Link>

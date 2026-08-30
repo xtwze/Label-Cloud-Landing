@@ -63,14 +63,6 @@ export function MotionFrame({ children }: { children: React.ReactNode }) {
       },
     });
 
-    const workflowItems = gsap.utils.toArray<HTMLElement>(".workflow-item");
-    gsap.from(workflowItems, {
-      x: 44,
-      autoAlpha: 0,
-      stagger: 0.14,
-      ease: "power3.out",
-      scrollTrigger: { trigger: ".workflow-track", start: "top 74%", once: true },
-    });
   }, { scope });
 
   return (
