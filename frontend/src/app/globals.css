@@ -64,6 +64,7 @@ body {
 }
 .site-header,
 .hero-content,
+.reveal-section,
 .trust-strip > *,
 .manifesto > *,
 .capabilities > *,
@@ -214,13 +215,16 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .capability-eyebrow {
   position: absolute;
   z-index: 4;
-  top: max(94px, 10vh);
-  left: max(24px, calc((100vw - 1320px) / 2));
+  inset: 0;
+  display: grid;
+  place-items: center;
   margin: 0;
-  font-family: var(--font-plex-mono), monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 570;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-align: center;
+  pointer-events: none;
 }
 .release-pieces { position: absolute; z-index: 3; inset: 0; }
 .release-piece {
@@ -238,7 +242,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .release-piece-b { right: 8vw; top: 22%; transform: rotate(4deg); }
 .release-piece-c { left: 19vw; bottom: 10%; transform: rotate(2deg); }
 .release-piece svg { float: right; color: #6950e5; }
-.release-piece > span { display: block; color: rgb(17 17 16 / 42%); font-family: var(--font-plex-mono), monospace; font-size: 0.68rem; }
 .release-piece strong { display: block; margin-top: 42px; font-size: clamp(1.6rem, 2.4vw, 2.3rem); font-weight: 570; letter-spacing: -0.04em; }
 .release-piece p { margin: 3px 0 0; color: rgb(17 17 16 / 52%); font-size: 0.82rem; }
 .labelcloud-hub {
@@ -253,18 +256,16 @@ button, a { -webkit-tap-highlight-color: transparent; }
   pointer-events: none;
   will-change: transform, opacity;
 }
-.labelcloud-hub::before,
-.labelcloud-hub::after {
-  content: "";
-  position: absolute;
-  border: 1px solid rgb(105 80 229 / 32%);
-  border-radius: 50%;
-}
-.labelcloud-hub::before { width: min(44vw, 540px); aspect-ratio: 1; }
-.labelcloud-hub::after { width: min(31vw, 380px); aspect-ratio: 1; border-color: rgb(105 80 229 / 17%); }
 .labelcloud-hub > * { position: relative; z-index: 1; }
+.labelcloud-hub > .hub-orbit { position: absolute; z-index: 0; width: min(76vw, 96svh, 880px); height: auto; aspect-ratio: 1; overflow: visible; }
+.hub-orbit-surface { fill: var(--paper); fill-opacity: 0.92; }
+.hub-orbit-inner { stroke: rgb(105 80 229 / 16%); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.hub-orbit-line { stroke: rgb(105 80 229 / 56%); stroke-width: 1; stroke-dasharray: 100; stroke-dashoffset: 0; }
+.hub-orbit-arc { stroke: #6950e5; stroke-width: 3; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.hub-orbit-port { fill: var(--paper); stroke: rgb(105 80 229 / 40%); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.hub-orbit-dot { fill: #6950e5; }
 .labelcloud-hub > span { color: #6950e5; font-family: var(--font-plex-mono), monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; }
-.labelcloud-hub > strong { margin-top: 18px; font-size: clamp(4rem, 8vw, 8rem); font-weight: 580; letter-spacing: -0.065em; line-height: 0.88; }
+.labelcloud-hub > strong { margin-top: 18px; font-size: clamp(3.5rem, min(6.6vw, 9svh), 6.8rem); font-weight: 580; letter-spacing: -0.04em; line-height: 0.88; }
 .labelcloud-hub > p { margin: 28px 0 0; color: rgb(17 17 16 / 62%); font-size: clamp(1rem, 1.6vw, 1.3rem); line-height: 1.45; }
 .release-solution {
   position: absolute;
@@ -448,8 +449,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .release-solution { position: static; width: min(100%, 760px); transform: none; margin: 92px auto 0; text-align: left; }
   .release-solution { display: block; padding-inline: 0; }
   .labelcloud-hub { position: relative; inset: auto; min-height: 520px; margin: 70px auto 0; }
-  .labelcloud-hub::before { width: min(78vw, 480px); }
-  .labelcloud-hub::after { width: min(56vw, 340px); }
+  .labelcloud-hub > .hub-orbit { width: min(100%, 600px); }
   .release-solution h2 { font-size: clamp(3.4rem, 8.5vw, 5rem); }
   .release-solution > p { margin-inline: 0; }
   .metric-stage { position: static; width: min(100%, 900px); grid-template-rows: auto; transform: none; margin: 100px auto 0; padding-inline: 0; }
@@ -478,13 +478,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .manifesto, .custom, .migration, .contact { padding-block: 84px; }
   .manifesto h2 { font-size: 2.7rem; }
   .capability-stage { padding: 84px 16px 70px; }
-  .capability-eyebrow { margin-bottom: 32px; font-size: 0.62rem; }
+  .capability-eyebrow { margin-bottom: 32px; font-size: clamp(2.75rem, 12vw, 4rem); }
   .release-pieces { grid-template-columns: 1fr; gap: 8px; }
   .release-piece { min-height: 126px; }
   .release-piece strong { margin-top: 22px; }
   .release-solution { margin-top: 78px; }
   .labelcloud-hub { min-height: 390px; margin-top: 54px; }
-  .labelcloud-hub > strong { font-size: clamp(3.5rem, 18vw, 5rem); }
+  .labelcloud-hub > strong { font-size: clamp(2.6rem, 12vw, 4rem); }
   .labelcloud-hub > p { font-size: 0.94rem; }
   .release-solution h2 { font-size: clamp(3rem, 14vw, 4.15rem); line-height: 0.94; }
   .release-solution > p { margin-top: 28px; font-size: 0.94rem; }

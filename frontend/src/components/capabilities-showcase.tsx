@@ -47,6 +47,8 @@ export function CapabilitiesShowcase() {
       if (!stage || !hub || !solution || !metrics || pieces.length === 0) return;
 
       gsap.set(hub, { autoAlpha: 0, scale: 0.72 });
+      gsap.set(".hub-orbit-line", { strokeDashoffset: 100 });
+      gsap.set(".hub-orbit-arrivals", { autoAlpha: 0 });
       gsap.set(solution, { autoAlpha: 0, scale: 0.88, y: 28 });
       gsap.set(metrics, { autoAlpha: 0, yPercent: 22 });
       gsap.set(metricCards, { y: 36 });
@@ -82,7 +84,10 @@ export function CapabilitiesShowcase() {
           stagger: 0.04,
           duration: 1,
         })
+        .to(".capability-eyebrow", { autoAlpha: 0, y: -16, duration: 0.35 }, 0)
         .to(hub, { autoAlpha: 1, scale: 1, duration: 0.78, ease: "power3.out" }, "-=0.42")
+        .to(".hub-orbit-line", { strokeDashoffset: 0, duration: 0.78, ease: "power2.out" }, "<")
+        .to(".hub-orbit-arrivals", { autoAlpha: 1, duration: 0.3 }, "<0.42")
         .to(hub, { scale: 1.04, duration: 0.42 }, "+=0.38")
         .to(hub, { autoAlpha: 0, scale: 1.13, duration: 0.6 })
         .to(solution, { autoAlpha: 1, scale: 1, y: 0, duration: 0.85 }, "-=0.04")
@@ -103,25 +108,36 @@ export function CapabilitiesShowcase() {
           <div className="release-pieces" aria-label="Как релиз собирали раньше">
             <article className="release-piece release-piece-a">
               <FileAudio size={25} weight="light" aria-hidden="true" />
-              <span>01</span>
               <strong>Трек</strong>
               <p>в переписке</p>
             </article>
             <article className="release-piece release-piece-b">
               <ImageSquare size={25} weight="light" aria-hidden="true" />
-              <span>02</span>
               <strong>Обложка</strong>
               <p>на диске</p>
             </article>
             <article className="release-piece release-piece-c">
               <IdentificationCard size={25} weight="light" aria-hidden="true" />
-              <span>03</span>
               <strong>Данные</strong>
               <p>в таблице</p>
             </article>
           </div>
 
           <div className="labelcloud-hub" aria-label="В LabelCloud всё собрано и хранится в одном месте">
+            <svg className="hub-orbit" viewBox="0 0 600 600" fill="none" aria-hidden="true" focusable="false">
+              <circle className="hub-orbit-surface" cx="300" cy="300" r="260" />
+              <circle className="hub-orbit-inner" cx="300" cy="300" r="225" />
+              <circle className="hub-orbit-line" cx="300" cy="300" r="260" pathLength="100" transform="rotate(-90 300 300)" />
+              <g className="hub-orbit-arrivals">
+                {[0, 120, 240].map((angle) => (
+                  <g key={angle} transform={`rotate(${angle} 300 300)`}>
+                    <path className="hub-orbit-arc" d="M 340.673 556.799 A 260 260 0 0 1 259.327 556.799" />
+                    <circle className="hub-orbit-port" cx="300" cy="560" r="10" />
+                    <circle className="hub-orbit-dot" cx="300" cy="560" r="4" />
+                  </g>
+                ))}
+              </g>
+            </svg>
             <span>Всё сходится сюда</span>
             <strong>LabelCloud</strong>
             <p>Всё собрано и хранится<br />в одном месте</p>
