@@ -47,11 +47,39 @@ export function CapabilitiesShowcase() {
       if (!stage || !hub || !solution || !metrics || pieces.length === 0) return;
 
       gsap.set(hub, { autoAlpha: 0, scale: 0.72 });
-      gsap.set(".hub-orbit-line", { strokeDashoffset: 100 });
-      gsap.set(".hub-orbit-arrivals", { autoAlpha: 0 });
+      gsap.set(".hub-orbit-line", { strokeDashoffset: 100, strokeWidth: 2.4, strokeOpacity: 1, autoRound: false });
+      gsap.set(".hub-orbit-head", { autoAlpha: 0, attr: { transform: "rotate(0 300 300)" } });
+      gsap.set(".hub-orbit-inner", { opacity: 0.35 });
+      gsap.set(".hub-orbit-arrival", { autoAlpha: 0 });
+      gsap.set(".hub-orbit-port", { attr: { r: 6 } });
+      gsap.set(".hub-orbit-dot", { attr: { r: 1 } });
       gsap.set(solution, { autoAlpha: 0, scale: 0.88, y: 28 });
       gsap.set(metrics, { autoAlpha: 0, yPercent: 22 });
       gsap.set(metricCards, { y: 36 });
+
+      const drawDuration = 1.1;
+      const orbitTimeline = gsap.timeline({ defaults: { ease: "none" } });
+
+      orbitTimeline
+        .to(".hub-orbit-line", { strokeDashoffset: 0, duration: drawDuration, autoRound: false }, 0)
+        .to(".hub-orbit-head", { attr: { transform: "rotate(360 300 300)" }, duration: drawDuration }, 0)
+        .to(".hub-orbit-head", { autoAlpha: 1, duration: 0.08 }, 0)
+        .to(".hub-orbit-head", { autoAlpha: 0, duration: 0.14 }, drawDuration)
+        .to(".hub-orbit-line", { strokeWidth: 1.25, strokeOpacity: 0.72, duration: 0.32, ease: "power2.out", autoRound: false }, drawDuration)
+        .to(".hub-orbit-inner", { opacity: 1, duration: 0.32 }, drawDuration);
+
+      // The drawing head reaches each of the three equally spaced ports in order.
+      gsap.utils.toArray<SVGGElement>(".hub-orbit-arrival").forEach((arrival, index) => {
+        const arrivalTime = drawDuration * (index + 0.5) / 3;
+        const port = arrival.querySelector(".hub-orbit-port");
+        const dot = arrival.querySelector(".hub-orbit-dot");
+
+        orbitTimeline
+          .to(arrival, { autoAlpha: 1, duration: 0.08 }, arrivalTime)
+          .to(port, { attr: { r: 14 }, duration: 0.12, ease: "power2.out" }, arrivalTime)
+          .to(port, { attr: { r: 10 }, duration: 0.22, ease: "power2.out" }, arrivalTime + 0.12)
+          .to(dot, { attr: { r: 4 }, duration: 0.18, ease: "power2.out" }, arrivalTime);
+      });
 
       const timeline = gsap.timeline({
         defaults: { ease: "none" },
@@ -86,8 +114,7 @@ export function CapabilitiesShowcase() {
         })
         .to(".capability-eyebrow", { autoAlpha: 0, y: -16, duration: 0.35 }, 0)
         .to(hub, { autoAlpha: 1, scale: 1, duration: 0.78, ease: "power3.out" }, "-=0.42")
-        .to(".hub-orbit-line", { strokeDashoffset: 0, duration: 0.78, ease: "power2.out" }, "<")
-        .to(".hub-orbit-arrivals", { autoAlpha: 1, duration: 0.3 }, "<0.42")
+        .add(orbitTimeline, "<0.12")
         .to(hub, { scale: 1.04, duration: 0.42 }, "+=0.38")
         .to(hub, { autoAlpha: 0, scale: 1.13, duration: 0.6 })
         .to(solution, { autoAlpha: 1, scale: 1, y: 0, duration: 0.85 }, "-=0.04")
@@ -128,9 +155,13 @@ export function CapabilitiesShowcase() {
               <circle className="hub-orbit-surface" cx="300" cy="300" r="260" />
               <circle className="hub-orbit-inner" cx="300" cy="300" r="225" />
               <circle className="hub-orbit-line" cx="300" cy="300" r="260" pathLength="100" transform="rotate(-90 300 300)" />
+              <g className="hub-orbit-head">
+                <path className="hub-orbit-trail" d="M 245.943 45.682 A 260 260 0 0 1 300 40" />
+                <circle className="hub-orbit-tip" cx="300" cy="40" r="4" />
+              </g>
               <g className="hub-orbit-arrivals">
-                {[0, 120, 240].map((angle) => (
-                  <g key={angle} transform={`rotate(${angle} 300 300)`}>
+                {[240, 0, 120].map((angle) => (
+                  <g className="hub-orbit-arrival" key={angle} transform={`rotate(${angle} 300 300)`}>
                     <path className="hub-orbit-arc" d="M 340.673 556.799 A 260 260 0 0 1 259.327 556.799" />
                     <circle className="hub-orbit-port" cx="300" cy="560" r="10" />
                     <circle className="hub-orbit-dot" cx="300" cy="560" r="4" />

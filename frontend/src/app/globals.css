@@ -260,7 +260,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .labelcloud-hub > .hub-orbit { position: absolute; z-index: 0; width: min(76vw, 96svh, 880px); height: auto; aspect-ratio: 1; overflow: visible; }
 .hub-orbit-surface { fill: var(--paper); fill-opacity: 0.92; }
 .hub-orbit-inner { stroke: rgb(105 80 229 / 16%); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.hub-orbit-line { stroke: rgb(105 80 229 / 56%); stroke-width: 1; stroke-dasharray: 100; stroke-dashoffset: 0; }
+.hub-orbit-line { stroke: #6950e5; stroke-opacity: 0.72; stroke-width: 1.25; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 0; }
+.hub-orbit-head { opacity: 0; visibility: hidden; }
+.hub-orbit-trail { stroke: #6950e5; stroke-width: 3.5; stroke-linecap: round; }
+.hub-orbit-tip { fill: #6950e5; }
 .hub-orbit-arc { stroke: #6950e5; stroke-width: 3; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .hub-orbit-port { fill: var(--paper); stroke: rgb(105 80 229 / 40%); stroke-width: 1; vector-effect: non-scaling-stroke; }
 .hub-orbit-dot { fill: #6950e5; }
