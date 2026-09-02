@@ -139,18 +139,15 @@ export function CapabilitiesShowcase() {
           <div className="release-pieces" aria-label="Как релиз собирали раньше">
             <article className="release-piece release-piece-a">
               <FileAudio size={25} weight="light" aria-hidden="true" />
-              <strong>Трек</strong>
-              <p>в переписке</p>
+              <p className="release-piece-line"><strong>Трек</strong><span> - в переписке</span></p>
             </article>
             <article className="release-piece release-piece-b">
               <ImageSquare size={25} weight="light" aria-hidden="true" />
-              <strong>Обложка</strong>
-              <p>на диске</p>
+              <p className="release-piece-line"><strong>Обложка</strong><span> - на диске</span></p>
             </article>
             <article className="release-piece release-piece-c">
               <IdentificationCard size={25} weight="light" aria-hidden="true" />
-              <strong>Данные</strong>
-              <p>в таблице</p>
+              <p className="release-piece-line"><strong>Данные</strong><span> - в таблице</span></p>
             </article>
           </div>
 

@@ -145,6 +145,7 @@ function CustomFeatureNavButton({ active, onClick }: { active: boolean; onClick:
   const mascotRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
   const buttonLoopRef = useRef<gsap.core.Timeline | null>(null);
+  const attentionLoopRef = useRef<gsap.core.Timeline | null>(null);
   const [mascotPlaying, setMascotPlaying] = useState(false);
   useGSAP(() => {
     const mascot = mascotRef.current;
@@ -171,17 +172,41 @@ function CustomFeatureNavButton({ active, onClick }: { active: boolean; onClick:
       .to(button, { y: 0, scaleX: 1, scaleY: 1, duration: 0.14, ease: "elastic.out(1, 0.45)" }, 0.78)
       .to(button, { y: 0, scaleX: 1, scaleY: 1, duration: 0.04 }, 0.92);
 
+    attentionLoopRef.current = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 2.5, delay: 1.1, defaults: { overwrite: "auto" } })
+      .to(button, { y: 2, scaleX: 0.985, scaleY: 0.94, duration: 0.08, ease: "power2.in" })
+      .to(button, { y: 0, scaleX: 1, scaleY: 1, duration: 0.18, ease: "back.out(2.5)" })
+      .to(button, { y: 2, scaleX: 0.985, scaleY: 0.94, duration: 0.08, ease: "power2.in" }, "+=0.12")
+      .to(button, { y: 0, scaleX: 1, scaleY: 1, duration: 0.2, ease: "back.out(2.5)" });
+
+    let isVisible = false;
+    const syncAttention = () => {
+      const shouldPlay = isVisible && !document.hidden && !active;
+      if (shouldPlay) attentionLoopRef.current?.restart(true);
+      else attentionLoopRef.current?.pause(0);
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      syncAttention();
+    }, { threshold: 0.3 });
+    observer.observe(rootRef.current ?? button);
+    document.addEventListener("visibilitychange", syncAttention);
+
     return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", syncAttention);
       timelineRef.current?.kill();
       timelineRef.current = null;
       buttonLoopRef.current?.kill();
       buttonLoopRef.current = null;
+      attentionLoopRef.current?.kill();
+      attentionLoopRef.current = null;
     };
-  }, { scope: rootRef });
+  }, { scope: rootRef, dependencies: [active], revertOnUpdate: true });
 
   function reveal() {
     setMascotPlaying(false);
     window.requestAnimationFrame(() => setMascotPlaying(true));
+    attentionLoopRef.current?.pause(0);
     timelineRef.current?.restart();
     buttonLoopRef.current?.restart();
   }
@@ -190,6 +215,7 @@ function CustomFeatureNavButton({ active, onClick }: { active: boolean; onClick:
     buttonLoopRef.current?.pause(0);
     if (buttonRef.current) gsap.set(buttonRef.current, { y: 0, scaleX: 1, scaleY: 1 });
     timelineRef.current?.reverse();
+    if (!active) attentionLoopRef.current?.restart(true);
   }
   function touchReveal(event: React.PointerEvent<HTMLButtonElement>) {
     if (event.pointerType === "touch") timelineRef.current?.restart();
@@ -197,8 +223,10 @@ function CustomFeatureNavButton({ active, onClick }: { active: boolean; onClick:
 
   return (
     <div className={styles.mascotTrigger} ref={rootRef} onPointerEnter={reveal} onPointerLeave={hide}>
-      <button ref={buttonRef} type="button" className={active ? styles.navActive : styles.navButton} onClick={onClick} onFocus={reveal} onBlur={hide} onPointerDown={touchReveal}>
-        <Sparkle size={18} weight="light" /> <span className={styles.navLabel}>Нажми на меня</span>
+      <button ref={buttonRef} type="button" className={active ? styles.navActive : styles.navButton} onClick={onClick} onFocus={reveal} onBlur={hide} onPointerDown={touchReveal} aria-label="Нажми на меня — новый раздел">
+        <Sparkle size={18} weight="light" />
+        <span className={styles.navLabel}>Нажми на меня</span>
+        <span className={styles.navBaitBadge} aria-hidden="true">99+</span>
       </button>
       <div className={styles.mascotStage} aria-hidden="true">
         <span className={styles.mascotBurst} /><span className={styles.mascotBurst} /><span className={styles.mascotBurst} />

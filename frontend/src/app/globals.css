@@ -242,8 +242,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .release-piece-b { right: 8vw; top: 22%; transform: rotate(4deg); }
 .release-piece-c { left: 19vw; bottom: 10%; transform: rotate(2deg); }
 .release-piece svg { float: right; color: #6950e5; }
-.release-piece strong { display: block; margin-top: 42px; font-size: clamp(1.6rem, 2.4vw, 2.3rem); font-weight: 570; letter-spacing: -0.04em; }
-.release-piece p { margin: 3px 0 0; color: rgb(17 17 16 / 52%); font-size: 0.82rem; }
+.release-piece-line { margin: 42px 0 0; color: rgb(17 17 16 / 58%); font-size: clamp(1.18rem, 1.65vw, 1.65rem); font-weight: 400; letter-spacing: -0.035em; line-height: 1.08; white-space: nowrap; }
+.release-piece-line strong { color: #111110; font-weight: 680; }
 .labelcloud-hub {
   position: absolute;
   z-index: 4;
@@ -471,7 +471,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .capability-eyebrow { position: static; width: min(100%, 680px); margin: 0 auto 42px; }
   .release-pieces { position: static; width: min(100%, 680px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-inline: auto; }
   .release-piece { position: static; width: auto; min-height: 170px; transform: none; padding: 20px; }
-  .release-piece strong { margin-top: 42px; font-size: 1.55rem; }
+  .release-piece-line { margin-top: 42px; }
   .release-solution { position: static; width: min(100%, 760px); transform: none; margin: 92px auto 0; text-align: left; }
   .release-solution { display: block; padding-inline: 0; }
   .labelcloud-hub { position: relative; inset: auto; min-height: 520px; margin: 70px auto 0; }
@@ -508,7 +508,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .capability-eyebrow { margin-bottom: 32px; font-size: clamp(2.75rem, 12vw, 4rem); }
   .release-pieces { grid-template-columns: 1fr; gap: 8px; }
   .release-piece { min-height: 126px; }
-  .release-piece strong { margin-top: 22px; }
+  .release-piece-line { margin-top: 22px; }
   .release-solution { margin-top: 78px; }
   .labelcloud-hub { min-height: 390px; margin-top: 54px; }
   .labelcloud-hub > strong { font-size: clamp(2.6rem, 12vw, 4rem); }
