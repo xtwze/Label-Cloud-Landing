@@ -119,17 +119,27 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="footer section-shell">
-        <div>
+      <footer id="site-footer" className="footer section-shell">
+        <div className="footer-brand">
           <a className="brand" href="#top">LabelCloud</a>
           <p>Управление музыкальным лейблом.</p>
+          <p className="creator-credit">С заботой от <strong>KONSTANTINOV</strong></p>
         </div>
-        <div className="footer-links">
+
+        <div className="footer-owner" aria-label="Сведения о владельце сайта">
+          <span>Владелец сайта</span>
+          <strong>Константинов Михаил Алексеевич</strong>
+          <span>Самозанятый · плательщик НПД</span>
+          <a href="mailto:mihail.a.konstantinov@gmail.com">mihail.a.konstantinov@gmail.com</a>
+        </div>
+
+        <nav className="footer-links" aria-label="Правовая информация и контакты">
           <Link href="/privacy">Политика обработки данных</Link>
-          <a href="mailto:mihail.a.konstantinov@gmail.com">Email</a>
+          <Link href="/consent">Согласие на обработку данных</Link>
           <a href="https://t.me/xtwze" target="_blank" rel="noreferrer">Telegram</a>
-        </div>
-        <p className="legal">Самозанятый Константинов Михаил Алексеевич</p>
+        </nav>
+
+        <p className="legal">© 2026 LabelCloud</p>
       </footer>
     </MotionFrame>
   );
