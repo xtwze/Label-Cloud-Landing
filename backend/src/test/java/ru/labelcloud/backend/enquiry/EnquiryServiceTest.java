@@ -63,7 +63,7 @@ class EnquiryServiceTest {
         EnquiryService service = new EnquiryService(repository, Clock.fixed(NOW, ZoneOffset.UTC));
 
         EnquirySubmission result = service.submit(new CreateEnquiryRequest(
-                null, " XLORA ", null, "+7 999 000-00-00", "xtwze", null, null, ""
+                null, " XLORA ", null, "+7 999 000-00-00", "xtwze", null, true, ""
         ));
 
         assertThat(result.created()).isTrue();

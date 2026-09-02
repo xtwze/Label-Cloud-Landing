@@ -392,12 +392,15 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .form-field input { min-height: 50px; }
 .form-field input::placeholder, .form-field textarea::placeholder { color: rgb(240 239 233 / 42%); }
 .form-field input:focus, .form-field textarea:focus { border-color: var(--accent); background: #141413; }
+.consent-row { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 12px; align-items: start; margin-top: 24px; color: var(--muted); font-size: 0.78rem; line-height: 1.5; cursor: pointer; }
+.consent-row input { width: 17px; height: 17px; margin: 2px 0 0; accent-color: var(--accent); cursor: pointer; }
+.consent-row a { color: var(--paper); text-underline-offset: 3px; }
+.consent-row a:hover { color: var(--accent); }
 .field-error, .form-error { margin: 0; color: var(--danger); font-size: 0.75rem; }
+.consent-error { margin-top: 8px; }
 .form-error { margin-top: 18px; }
 .form-submit { margin-top: 28px; }
 .form-submit:disabled { opacity: 0.58; cursor: wait; }
-.form-legal { max-width: 560px; margin: 14px 0 0; color: rgb(240 239 233 / 48%); font-size: 0.7rem; line-height: 1.5; }
-.form-legal a { color: inherit; }
 .honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .form-success { min-height: 330px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
 .form-success svg { color: var(--accent); }
@@ -429,9 +432,18 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .privacy-page { width: min(100% - 48px, 920px); margin: 0 auto; padding: 60px 0 120px; }
 .privacy-back { display: inline-block; margin-bottom: 80px; color: var(--muted); }
 .privacy-page h1 { margin: 0; font-size: clamp(2.6rem, 6vw, 5.2rem); line-height: 1; letter-spacing: -0.04em; }
-.privacy-updated { margin: 22px 0 80px; color: var(--muted); font-family: var(--font-plex-mono), monospace; font-size: 0.78rem; }
+.privacy-page .privacy-updated { margin: 28px 0 80px; color: var(--muted); font-family: var(--font-plex-mono), monospace; font-size: 0.78rem; }
+.privacy-page article section { max-width: 76ch; }
 .privacy-page article h2 { margin: 50px 0 14px; font-size: 1.35rem; }
-.privacy-page article p { margin: 0; max-width: 76ch; color: #c5c4be; line-height: 1.75; }
+.privacy-page article p { margin: 0; color: #c5c4be; line-height: 1.75; }
+.privacy-page article p + p { margin-top: 14px; }
+.privacy-page article ul { display: grid; gap: 10px; margin: 14px 0 20px; padding-inline-start: 22px; color: #c5c4be; line-height: 1.7; }
+.privacy-page article a { text-underline-offset: 3px; }
+.policy-definitions, .policy-details { margin: 0; }
+.policy-definitions > div, .policy-details > div { display: grid; grid-template-columns: minmax(190px, 0.7fr) minmax(0, 1.3fr); gap: 28px; padding: 18px 0; border-top: 1px solid var(--line); }
+.policy-definitions > div:last-child, .policy-details > div:last-child { border-bottom: 1px solid var(--line); }
+.policy-definitions dt, .policy-details dt { color: var(--paper); font-weight: 620; line-height: 1.5; }
+.policy-definitions dd, .policy-details dd { margin: 0; color: #c5c4be; line-height: 1.7; }
 .privacy-page aside { margin-top: 60px; padding: 24px; border-radius: var(--radius-card); background: var(--ink-soft); color: var(--muted); line-height: 1.6; }
 
 @media (max-width: 900px) {
@@ -520,6 +532,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .footer-links { flex-direction: column; gap: 12px; }
   .privacy-page { width: calc(100% - 32px); padding-top: 34px; }
   .privacy-back { margin-bottom: 54px; }
+  .privacy-page .privacy-updated { margin-bottom: 54px; }
+  .policy-definitions > div, .policy-details > div { grid-template-columns: 1fr; gap: 7px; }
   .cookie-banner > div { display: grid; }
 }
 

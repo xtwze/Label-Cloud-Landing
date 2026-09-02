@@ -1,6 +1,7 @@
 package ru.labelcloud.backend.enquiry;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -11,7 +12,7 @@ public record CreateEnquiryRequest(
         @NotBlank @Size(min = 7, max = 40) String phone,
         @NotBlank @Size(max = 100) String telegram,
         @Size(max = 2000) String comment,
-        Boolean consent,
+        @AssertTrue boolean consent,
         @Size(max = 0) String website
 ) {
 }

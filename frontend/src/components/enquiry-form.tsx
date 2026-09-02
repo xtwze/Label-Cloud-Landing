@@ -3,13 +3,14 @@
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, CheckCircle } from "@phosphor-icons/react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 
 const schema = z.object({
   labelName: z.string().trim().min(2, "Укажите название лейбла").max(150, "Не больше 150 символов"),
   phone: z.string().trim().min(7, "Укажите телефон").max(40, "Не больше 40 символов"),
   telegram: z.string().trim().min(2, "Укажите Telegram").max(100, "Не больше 100 символов"),
+  consent: z.boolean().refine((value) => value, "Подтвердите согласие на обработку данных"),
   website: z.string().max(0).optional(),
 });
 
@@ -25,10 +26,11 @@ function reachGoal(goal: string) {
 export function EnquiryForm() {
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<EnquiryValues>({
+  const { control, register, handleSubmit, formState: { errors, isSubmitting } } = useForm<EnquiryValues>({
     resolver: zodResolver(schema),
-    defaultValues: { website: "" },
+    defaultValues: { consent: false, website: "" },
   });
+  const hasConsent = useWatch({ control, name: "consent" });
 
   const onSubmit = async (values: EnquiryValues) => {
     setServerError(null);
@@ -75,12 +77,16 @@ export function EnquiryForm() {
       <div className="honeypot" aria-hidden="true">
         <label>Ваш сайт<input tabIndex={-1} autoComplete="off" {...register("website")} /></label>
       </div>
+      <label className="consent-row">
+        <input type="checkbox" {...register("consent")} />
+        <span>Я даю <a href="/consent" target="_blank" rel="noreferrer">согласие на обработку персональных данных</a> и ознакомлен с <a href="/privacy" target="_blank" rel="noreferrer">политикой обработки персональных данных</a>.</span>
+      </label>
+      {errors.consent && <p className="field-error consent-error">{errors.consent.message}</p>}
       {serverError && <p className="form-error" role="alert">{serverError}</p>}
-      <button className="button button-primary form-submit" type="submit" disabled={isSubmitting}>
+      <button className="button button-primary form-submit" type="submit" disabled={isSubmitting || !hasConsent}>
         {isSubmitting ? "Отправляем..." : "Отправить заявку"}
         {!isSubmitting && <ArrowRight size={18} aria-hidden="true" />}
       </button>
-      <p className="form-legal">Нажимая кнопку, вы даёте <a href="/consent" target="_blank">согласие на обработку персональных данных</a> и принимаете <a href="/privacy" target="_blank">политику</a>.</p>
     </form>
   );
 }

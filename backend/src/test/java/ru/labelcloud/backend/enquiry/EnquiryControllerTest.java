@@ -52,6 +52,7 @@ class EnquiryControllerTest {
                                   "labelName": "XLORA",
                                   "phone": "+7 999 000-00-00",
                                   "telegram": "@xtwze",
+                                  "consent": true,
                                   "website": ""
                                 }
                                 """))
@@ -70,6 +71,24 @@ class EnquiryControllerTest {
                                   "email": "wrong",
                                   "phone": "1",
                                   "telegram": "",
+                                  "consent": false,
+                                  "website": ""
+                                }
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Проверьте заполнение формы"));
+        verifyNoInteractions(enquiryService);
+    }
+
+    @Test
+    void rejectsEnquiryWithoutConsent() throws Exception {
+        mockMvc.perform(post("/api/public/enquiries")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "labelName": "XLORA",
+                                  "phone": "+7 999 000-00-00",
+                                  "telegram": "@xtwze",
                                   "consent": false,
                                   "website": ""
                                 }
