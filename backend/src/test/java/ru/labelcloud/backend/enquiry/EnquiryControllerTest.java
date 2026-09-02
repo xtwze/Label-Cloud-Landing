@@ -41,7 +41,26 @@ class EnquiryControllerTest {
     }
 
     @Test
-    void rejectsMissingConsentAndInvalidContacts() throws Exception {
+    void acceptsEnquiryWithOnlyLabelAndContacts() throws Exception {
+        UUID id = UUID.randomUUID();
+        when(enquiryService.submit(any())).thenReturn(new EnquirySubmission(new EnquiryResponse(id, false), true));
+
+        mockMvc.perform(post("/api/public/enquiries")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "labelName": "XLORA",
+                                  "phone": "+7 999 000-00-00",
+                                  "telegram": "@xtwze",
+                                  "website": ""
+                                }
+                                """))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").value(id.toString()));
+    }
+
+    @Test
+    void rejectsInvalidRequiredContacts() throws Exception {
         mockMvc.perform(post("/api/public/enquiries")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""

@@ -316,7 +316,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .time-now { margin: 0 0 8px; color: #6950e5; font-family: var(--font-plex-mono), monospace; font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; }
 .time-win > strong { display: block; color: #6950e5; font-size: clamp(4.2rem, 7.5vw, 7.2rem); font-weight: 570; letter-spacing: -0.06em; line-height: 0.88; }
 .time-win h3 { max-width: 520px; margin: 38px 0 0; font-size: clamp(1.65rem, 2.5vw, 2.55rem); font-weight: 560; letter-spacing: -0.04em; line-height: 1.06; text-wrap: balance; }
-.time-win > p:last-child { max-width: 520px; margin: 18px 0 0; color: rgb(17 17 16 / 60%); line-height: 1.6; }
+.time-win h3 + p { max-width: 520px; margin: 18px 0 0; color: rgb(17 17 16 / 60%); line-height: 1.6; }
+.metric-demo-link { width: fit-content; display: inline-flex; align-items: center; gap: 7px; margin-top: 26px; padding-bottom: 3px; border-bottom: 1px solid rgb(17 17 16 / 30%); color: var(--ink); font-size: 0.82rem; font-weight: 650; text-decoration: none; transition: border-color 160ms ease, color 160ms ease; }
+.metric-demo-link:hover { border-color: #6950e5; color: #6950e5; }
+.metric-demo-link svg { flex: 0 0 auto; }
 .secondary-outcomes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(54px, 10vw, 150px); padding-block: 44px 120px; }
 .secondary-outcomes article { min-width: 0; }
 .secondary-outcomes svg { margin-bottom: 54px; color: #6950e5; }
@@ -389,12 +392,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .form-field input { min-height: 50px; }
 .form-field input::placeholder, .form-field textarea::placeholder { color: rgb(240 239 233 / 42%); }
 .form-field input:focus, .form-field textarea:focus { border-color: var(--accent); background: #141413; }
-.consent-row { display: grid; grid-template-columns: 18px 1fr; gap: 12px; margin-top: 24px; color: var(--muted); font-size: 0.78rem; line-height: 1.5; cursor: pointer; }
-.consent-row input { width: 17px; height: 17px; margin: 1px 0 0; accent-color: var(--accent); }
 .field-error, .form-error { margin: 0; color: var(--danger); font-size: 0.75rem; }
 .form-error { margin-top: 18px; }
 .form-submit { margin-top: 28px; }
 .form-submit:disabled { opacity: 0.58; cursor: wait; }
+.form-legal { max-width: 560px; margin: 14px 0 0; color: rgb(240 239 233 / 48%); font-size: 0.7rem; line-height: 1.5; }
+.form-legal a { color: inherit; }
 .honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .form-success { min-height: 330px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
 .form-success svg { color: var(--accent); }

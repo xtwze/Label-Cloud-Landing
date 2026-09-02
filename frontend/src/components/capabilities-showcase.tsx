@@ -33,6 +33,10 @@ const secondaryOutcomes = [
 export function CapabilitiesShowcase() {
   const root = useRef<HTMLElement>(null);
 
+  function openLabelDemo(page: "contracts" | "reports") {
+    window.dispatchEvent(new CustomEvent("labelcloud:open-demo", { detail: { workspace: "label", page } }));
+  }
+
   useGSAP(() => {
     const media = gsap.matchMedia();
 
@@ -178,7 +182,7 @@ export function CapabilitiesShowcase() {
             <span className="solution-index">В LabelCloud</span>
             <h2 id="capabilities-title">Релиз приходит готовым к модерации</h2>
             <p>Артист загружает аудио, обложку и данные. LabelCloud проверяет комплектность и требования. Менеджеру остаётся принять решение.</p>
-            <a className="release-demo-link" href="#demo">Посмотреть загрузку <ArrowUpRight size={17} aria-hidden="true" /></a>
+            <a className="release-demo-link" href="#demo-workspace">Посмотреть загрузку <ArrowUpRight size={17} aria-hidden="true" /></a>
           </div>
 
           <div className="metric-stage" aria-label="Экономия рабочего времени">
@@ -189,6 +193,7 @@ export function CapabilitiesShowcase() {
               <strong>0 минут</strong>
               <h3>Договор формируется автоматически</h3>
               <p>Данные артиста подставляются в шаблон вашего лейбла.</p>
+              <a className="metric-demo-link" href="#demo-workspace" onClick={() => openLabelDemo("contracts")}>Открыть договоры в демо <ArrowUpRight size={16} aria-hidden="true" /></a>
             </article>
             <article className="time-win">
               <SlidersHorizontal size={27} weight="light" aria-hidden="true" />
@@ -197,6 +202,7 @@ export function CapabilitiesShowcase() {
               <strong>1 клик</strong>
               <h3>Начисления распределяются по артистам</h3>
               <p>LabelCloud разбирает загруженный отчёт и распределяет начисления.</p>
+              <a className="metric-demo-link" href="#demo-workspace" onClick={() => openLabelDemo("reports")}>Обработать XLSX в демо <ArrowUpRight size={16} aria-hidden="true" /></a>
             </article>
           </div>
         </div>

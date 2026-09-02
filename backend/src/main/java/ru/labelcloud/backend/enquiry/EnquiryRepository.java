@@ -16,4 +16,10 @@ interface EnquiryRepository extends JpaRepository<Enquiry, UUID> {
             String normalizedPhone,
             Instant createdAfter
     );
+
+    Optional<Enquiry> findFirstByNormalizedPhoneAndTelegramAndCreatedAtAfterOrderByCreatedAtDesc(
+            String normalizedPhone,
+            String telegram,
+            Instant createdAfter
+    );
 }

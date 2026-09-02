@@ -64,6 +64,7 @@ const navigation: Record<Workspace, DemoNavigationItem[]> = {
   label: [
     { id: "overview", label: "Обзор", icon: SquaresFour },
     { id: "releases", label: "Релизы", icon: MusicNotes },
+    { id: "contracts", label: "Договоры", icon: FileText },
     { id: "reports", label: "Отчётность", icon: ChartLineUp },
     { id: "artists", label: "Артисты", icon: UsersThree },
     { id: "chat", label: "Чаты с артистами", icon: ChatCircleDots },
@@ -94,6 +95,20 @@ const artistReleaseRows = [
   { title: "Самый лучший трек в мире", detail: "Сингл, 1 трек", status: "Черновик", tone: "neutral" },
   { title: "Хит на сто процентов", detail: "EP, 4 трека", status: "На проверке", tone: "attention" },
   { title: "Самый лучший день", detail: "Сингл, 1 трек", status: "Доставлен", tone: "success" },
+];
+
+const contractRows = [
+  { number: "LC-024", title: "Лицензионный договор", artist: "KONSTANTINOV", date: "12 августа 2026", status: "Действует", tone: "success" },
+  { number: "LC-031", title: "Договор на выплату аванса", artist: "Мира Ли", date: "6 августа 2026", status: "На подписи", tone: "attention" },
+  { number: "LC-017", title: "Лицензионный договор", artist: "STAVKU", date: "28 июля 2026", status: "Действует", tone: "success" },
+  { number: "LC-039", title: "Дополнительное соглашение", artist: "NEMIGA", date: "19 июля 2026", status: "Черновик", tone: "neutral" },
+];
+
+const royaltyRows = [
+  { artist: "STAVKU", amount: "44 890 ₽", share: "40,1%" },
+  { artist: "KONSTANTINOV", amount: "31 644 ₽", share: "28,3%" },
+  { artist: "Мира Ли", amount: "18 220 ₽", share: "16,3%" },
+  { artist: "NEMIGA", amount: "17 250 ₽", share: "15,4%" },
 ];
 
 const releaseDemoSteps = [
@@ -304,6 +319,100 @@ function LabelReleases() {
   );
 }
 
+function LabelContracts() {
+  return (
+    <div className={styles.screenBody}>
+      <div className={styles.screenHeading}>
+        <div><h4>Договоры</h4><p>Все договоры артистов в одном разделе</p></div>
+        <span className={styles.demoData}>4 документа в демо</span>
+      </div>
+      <div className={styles.contractSummary} aria-label="Сводка по договорам">
+        <div><span>Действуют</span><strong>2</strong></div>
+        <div><span>Ожидает подписи</span><strong>1</strong></div>
+        <div><span>Черновик</span><strong>1</strong></div>
+      </div>
+      <div className={styles.contractList} aria-label="Договоры артистов">
+        <div className={styles.contractListHeading}><span>Документ</span><span>Артист</span><span>Дата</span><span>Статус</span></div>
+        {contractRows.map((contract) => (
+          <article className={styles.contractRow} key={contract.number}>
+            <div className={styles.contractIcon}><FileText size={19} weight="light" /></div>
+            <div><strong>{contract.title}</strong><span>№ {contract.number}</span></div>
+            <strong className={styles.contractArtist}>{contract.artist}</strong>
+            <time>{contract.date}</time>
+            <Status tone={contract.tone}>{contract.status}</Status>
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ReportProcessing() {
+  const root = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const steps = gsap.utils.toArray<HTMLElement>(`.${styles.processingStep}`);
+    const progress = root.current?.querySelector<HTMLElement>(`.${styles.processingProgress}`);
+    if (!progress) return;
+
+    if (reduceMotion) {
+      gsap.set(progress, { scaleX: 1 });
+      gsap.set(steps, { autoAlpha: 1 });
+      return;
+    }
+
+    gsap.set(progress, { scaleX: 0, transformOrigin: "0 50%" });
+    gsap.set(steps, { autoAlpha: 0.28, x: -8 });
+    const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+    timeline
+      .to(progress, { scaleX: 1, duration: 1.35, ease: "power1.inOut" }, 0)
+      .to(steps, { autoAlpha: 1, x: 0, duration: 0.3, stagger: 0.34 }, 0.08);
+  }, { scope: root });
+
+  return (
+    <div ref={root} className={styles.processingPanel} aria-live="polite">
+      <div className={styles.processingTrack}><span className={styles.processingProgress} /></div>
+      <div className={styles.processingStep}><span>01</span><div><strong>Читаем строки XLSX</strong><small>Продажи, площадки и территории</small></div><CheckCircle size={18} weight="light" /></div>
+      <div className={styles.processingStep}><span>02</span><div><strong>Сопоставляем каталог</strong><small>ISRC, релизы и исполнители</small></div><CheckCircle size={18} weight="light" /></div>
+      <div className={styles.processingStep}><span>03</span><div><strong>Распределяем начисления</strong><small>Ставки артистов и налоги</small></div><CheckCircle size={18} weight="light" /></div>
+    </div>
+  );
+}
+
+function ReportResult() {
+  const root = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return;
+    const items = root.current?.querySelectorAll(`[data-report-reveal]`);
+    if (!items) return;
+    gsap.fromTo(items, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.48, stagger: 0.07, ease: "power3.out" });
+  }, { scope: root });
+
+  return (
+    <div ref={root} className={styles.reportResult} aria-live="polite">
+      <div className={styles.reportTotals} data-report-reveal>
+        <div><span>До налога</span><strong>128 740 ₽</strong></div>
+        <div><span>Налог</span><strong>16 736 ₽</strong></div>
+        <div><span>После налога</span><strong>112 004 ₽</strong></div>
+      </div>
+      <div className={styles.reportDistribution} data-report-reveal>
+        <div className={styles.reportDistributionHeading}><div><h5>Распределение по артистам</h5><p>II квартал 2026</p></div><Status tone="success">Готово</Status></div>
+        {royaltyRows.map((row) => (
+          <div className={styles.reportArtistRow} data-report-reveal key={row.artist}>
+            <span className={styles.reportArtistAvatar}>{row.artist.slice(0, 1)}</span>
+            <strong>{row.artist}</strong>
+            <small>{row.share}</small>
+            <b>{row.amount}</b>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function LabelReports({ reportState, onUpload }: { reportState: ReportState; onUpload: () => void }) {
   return (
     <div className={styles.screenBody}>
@@ -316,18 +425,19 @@ function LabelReports({ reportState, onUpload }: { reportState: ReportState; onU
           <FileArrowUp size={30} weight="light" />
           <h5>{reportState === "ready" ? "Отчёт обработан" : reportState === "processing" ? "Обрабатываем файл" : "Загрузите отчёт дистрибьютора"}</h5>
           <p>{reportState === "ready" ? "Начисления подготовлены и появились в кабинетах артистов." : "Система разберёт строки и сопоставит их с артистами и релизами."}</p>
-          <button type="button" onClick={onUpload} disabled={reportState === "processing"}>
+          {reportState !== "idle" && <div className={styles.reportFile}><FileText size={17} weight="light" /><span><strong>royalty_report_q2.xlsx</strong><small>248 КБ · 1 842 строки</small></span></div>}
+          <button type="button" onClick={onUpload} disabled={reportState !== "idle"}>
             {reportState === "ready" ? <><Check size={18} /> Обработано</> : reportState === "processing" ? "Распределяем начисления..." : "Выбрать XLSX"}
           </button>
         </div>
-        <div className={styles.explanationPanel}>
+        {reportState === "processing" ? <ReportProcessing /> : reportState === "ready" ? <ReportResult /> : <div className={styles.explanationPanel}>
           <h5>Что произойдёт автоматически</h5>
           <ol>
             <li><span>1</span><div><strong>Система прочитает строки</strong><p>Продажи, площадки, территории и суммы попадут в единый отчёт.</p></div></li>
             <li><span>2</span><div><strong>Сопоставит каталог</strong><p>ISRC и названия свяжут начисления с нужными артистами и релизами.</p></div></li>
             <li><span>3</span><div><strong>Обновит кабинеты</strong><p>Каждый артист увидит только свою часть отчёта и новый баланс.</p></div></li>
           </ol>
-        </div>
+        </div>}
       </div>
     </div>
   );
@@ -801,9 +911,22 @@ export function ProductDemo() {
 
   useEffect(() => {
     if (reportState !== "processing") return;
-    const timer = window.setTimeout(() => setReportState("ready"), 1400);
+    const timer = window.setTimeout(() => setReportState("ready"), 1650);
     return () => window.clearTimeout(timer);
   }, [reportState]);
+
+  useEffect(() => {
+    function handleOpenDemo(event: Event) {
+      const detail = (event as CustomEvent<{ workspace?: Workspace; page?: string }>).detail;
+      if (detail?.workspace !== "label" || !detail.page) return;
+      setWorkspace("label");
+      setActivePage(detail.page);
+      if (detail.page === "reports") setReportState("idle");
+    }
+
+    window.addEventListener("labelcloud:open-demo", handleOpenDemo);
+    return () => window.removeEventListener("labelcloud:open-demo", handleOpenDemo);
+  }, []);
 
   function changeWorkspace(next: Workspace) {
     setWorkspace(next);
@@ -838,6 +961,7 @@ export function ProductDemo() {
   function renderScreen() {
     if (workspace === "label") {
       if (activePage === "releases") return <LabelReleases />;
+      if (activePage === "contracts") return <LabelContracts />;
       if (activePage === "reports") return <LabelReports reportState={reportState} onUpload={() => setReportState("processing")} />;
       if (activePage === "artists") return <LabelArtists />;
       if (activePage === "chat") return <DemoChat perspective="label" messages={messages} onSend={(text) => sendMessage("label", text)} />;
@@ -870,7 +994,7 @@ export function ProductDemo() {
         </button>
       </div>
 
-      <div className={styles.productFrame}>
+      <div id="demo-workspace" className={styles.productFrame}>
         <aside className={styles.demoSidebar} aria-label={workspace === "label" ? "Разделы кабинета лейбла" : "Разделы кабинета артиста"}>
           <div className={styles.sidebarBrand}><span className={styles.brandDisc} aria-hidden="true" />LabelCloud</div>
           <div className={styles.profile}>

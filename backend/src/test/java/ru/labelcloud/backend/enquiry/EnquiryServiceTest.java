@@ -56,6 +56,24 @@ class EnquiryServiceTest {
         verify(repository, never()).save(any());
     }
 
+    @Test
+    void savesMinimalEnquiryAndChecksDuplicatesByPhoneAndTelegram() {
+        when(repository.findFirstByNormalizedPhoneAndTelegramAndCreatedAtAfterOrderByCreatedAtDesc(
+                any(), any(), any())).thenReturn(Optional.empty());
+        EnquiryService service = new EnquiryService(repository, Clock.fixed(NOW, ZoneOffset.UTC));
+
+        EnquirySubmission result = service.submit(new CreateEnquiryRequest(
+                null, " XLORA ", null, "+7 999 000-00-00", "xtwze", null, null, ""
+        ));
+
+        assertThat(result.created()).isTrue();
+        ArgumentCaptor<Enquiry> captor = ArgumentCaptor.forClass(Enquiry.class);
+        verify(repository).save(captor.capture());
+        assertThat(captor.getValue().getContactName()).isNull();
+        assertThat(captor.getValue().getEmail()).isNull();
+        assertThat(captor.getValue().getTelegram()).isEqualTo("@xtwze");
+    }
+
     private static CreateEnquiryRequest validRequest() {
         return new CreateEnquiryRequest(
                 " Михаил ", " XLORA ", "MAIL@example.com ", "+7 999 000-00-00",

@@ -4,6 +4,7 @@ import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,11 +31,18 @@ class EnquiryService {
     @Transactional
     EnquirySubmission submit(CreateEnquiryRequest request) {
         Instant now = clock.instant();
-        String normalizedEmail = request.email().trim().toLowerCase(Locale.ROOT);
+        String email = normalizeOptional(request.email());
+        String normalizedEmail = email == null ? null : email.toLowerCase(Locale.ROOT);
         String normalizedPhone = request.phone().replaceAll("[^0-9+]", "");
+        String telegram = normalizeTelegram(request.telegram());
 
-        var duplicate = repository
-                .findFirstByNormalizedEmailAndNormalizedPhoneAndCreatedAtAfterOrderByCreatedAtDesc(
+        Optional<Enquiry> duplicate = normalizedEmail == null
+                ? repository.findFirstByNormalizedPhoneAndTelegramAndCreatedAtAfterOrderByCreatedAtDesc(
+                        normalizedPhone,
+                        telegram,
+                        now.minus(DUPLICATE_WINDOW)
+                )
+                : repository.findFirstByNormalizedEmailAndNormalizedPhoneAndCreatedAtAfterOrderByCreatedAtDesc(
                         normalizedEmail,
                         normalizedPhone,
                         now.minus(DUPLICATE_WINDOW)
@@ -46,13 +54,13 @@ class EnquiryService {
 
         Enquiry enquiry = new Enquiry(
                 UUID.randomUUID(),
-                request.contactName().trim(),
+                normalizeOptional(request.contactName()),
                 request.labelName().trim(),
-                request.email().trim(),
+                email,
                 normalizedEmail,
                 request.phone().trim(),
                 normalizedPhone,
-                normalizeTelegram(request.telegram()),
+                telegram,
                 normalizeComment(request.comment()),
                 now
         );
@@ -70,5 +78,12 @@ class EnquiryService {
             return null;
         }
         return comment.trim();
+    }
+
+    private static String normalizeOptional(String value) {
+        if (value == null || value.isBlank()) {
+            return null;
+        }
+        return value.trim();
     }
 }

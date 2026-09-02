@@ -29,7 +29,7 @@ The sales flow is enquiry first: a visitor submits contact details, the operator
 ## Capabilities and Constraints
 
 - The landing page contains product positioning, capabilities, an expandable client-logo strip with XLORA as the first confirmed client, individual adaptation, migration, individual configuration and a contact form.
-- Enquiry fields: contact name, label name, email, phone and Telegram are required; comment is optional; personal-data consent is required.
+- Enquiry fields: label name, phone and Telegram are required; submitting the form confirms personal-data consent.
 - Enquiries are validated on the server and stored in PostgreSQL.
 - Yandex Metrica integration must be configuration-driven and safe to leave disabled.
 - A protected, unlinked administration area is available for reviewing enquiries and changing their status.

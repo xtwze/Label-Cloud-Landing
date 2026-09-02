@@ -16,16 +16,16 @@ class Enquiry {
     @Id
     private UUID id;
 
-    @Column(name = "contact_name", nullable = false, length = 100)
+    @Column(name = "contact_name", length = 100)
     private String contactName;
 
     @Column(name = "label_name", nullable = false, length = 150)
     private String labelName;
 
-    @Column(nullable = false, length = 254)
+    @Column(length = 254)
     private String email;
 
-    @Column(name = "normalized_email", nullable = false, length = 254)
+    @Column(name = "normalized_email", length = 254)
     private String normalizedEmail;
 
     @Column(nullable = false, length = 40)

@@ -7,13 +7,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const schema = z.object({
-  contactName: z.string().trim().min(2, "Укажите имя").max(100, "Не больше 100 символов"),
   labelName: z.string().trim().min(2, "Укажите название лейбла").max(150, "Не больше 150 символов"),
-  email: z.email("Проверьте адрес email"),
   phone: z.string().trim().min(7, "Укажите телефон").max(40, "Не больше 40 символов"),
   telegram: z.string().trim().min(2, "Укажите Telegram").max(100, "Не больше 100 символов"),
-  comment: z.string().trim().max(2000, "Не больше 2000 символов").optional(),
-  consent: z.boolean().refine((value) => value, "Нужно согласие на обработку данных"),
   website: z.string().max(0).optional(),
 });
 
@@ -31,7 +27,7 @@ export function EnquiryForm() {
   const [serverError, setServerError] = useState<string | null>(null);
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<EnquiryValues>({
     resolver: zodResolver(schema),
-    defaultValues: { consent: false, website: "" },
+    defaultValues: { website: "" },
   });
 
   const onSubmit = async (values: EnquiryValues) => {
@@ -66,14 +62,8 @@ export function EnquiryForm() {
   return (
     <form className="enquiry-form" onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="form-grid">
-        <Field label="Как к вам обращаться" error={errors.contactName?.message}>
-          <input autoComplete="name" {...register("contactName")} />
-        </Field>
-        <Field label="Название лейбла" error={errors.labelName?.message}>
+        <Field label="Название лейбла" error={errors.labelName?.message} className="field-wide">
           <input autoComplete="organization" {...register("labelName")} />
-        </Field>
-        <Field label="Email" error={errors.email?.message}>
-          <input type="email" autoComplete="email" {...register("email")} />
         </Field>
         <Field label="Телефон" error={errors.phone?.message}>
           <input type="tel" autoComplete="tel" {...register("phone")} />
@@ -81,27 +71,16 @@ export function EnquiryForm() {
         <Field label="Telegram" error={errors.telegram?.message}>
           <input autoComplete="off" placeholder="@username" {...register("telegram")} />
         </Field>
-        <Field label="Сайт и соцсети лейбла" error={errors.comment?.message} className="field-wide">
-          <textarea
-            rows={3}
-            placeholder="Ссылки на сайт, VK, Telegram, YouTube — если есть"
-            {...register("comment")}
-          />
-        </Field>
       </div>
       <div className="honeypot" aria-hidden="true">
         <label>Ваш сайт<input tabIndex={-1} autoComplete="off" {...register("website")} /></label>
       </div>
-      <label className="consent-row">
-        <input type="checkbox" {...register("consent")} />
-        <span>Я даю <a href="/consent" target="_blank">согласие на обработку персональных данных</a> и ознакомлен с <a href="/privacy" target="_blank">политикой</a>.</span>
-      </label>
-      {errors.consent && <p className="field-error">{errors.consent.message}</p>}
       {serverError && <p className="form-error" role="alert">{serverError}</p>}
       <button className="button button-primary form-submit" type="submit" disabled={isSubmitting}>
         {isSubmitting ? "Отправляем..." : "Отправить заявку"}
         {!isSubmitting && <ArrowRight size={18} aria-hidden="true" />}
       </button>
+      <p className="form-legal">Нажимая кнопку, вы даёте <a href="/consent" target="_blank">согласие на обработку персональных данных</a> и принимаете <a href="/privacy" target="_blank">политику</a>.</p>
     </form>
   );
 }

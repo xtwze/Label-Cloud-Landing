@@ -91,6 +91,7 @@
   width: 100%;
   min-width: 0;
   min-height: 690px;
+  scroll-margin-top: 24px;
   display: grid;
   grid-template-columns: 226px minmax(0, 1fr);
   margin-top: 14px;
@@ -557,6 +558,22 @@
 .artistDetailsGrid strong { overflow-wrap: anywhere; font-size: 0.74rem; font-weight: 560; }
 .artistProfileNote { max-width: 64ch; margin: 18px 0 0; color: #8e8d87; font-size: 0.7rem; line-height: 1.55; }
 
+.contractSummary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 34px; border-top: 1px solid rgb(240 239 233 / 10%); border-bottom: 1px solid rgb(240 239 233 / 10%); }
+.contractSummary > div { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 17px 18px; border-right: 1px solid rgb(240 239 233 / 9%); }
+.contractSummary > div:last-child { border-right: 0; }
+.contractSummary span { color: #8e8d87; font-size: 0.68rem; }
+.contractSummary strong { color: #ded7ff; font-size: 1.3rem; font-weight: 570; font-variant-numeric: tabular-nums; }
+.contractList { margin-top: 24px; overflow: hidden; border: 1px solid rgb(240 239 233 / 11%); border-radius: var(--radius-card); }
+.contractListHeading { min-height: 42px; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(100px, 0.7fr) 120px 92px; align-items: center; gap: 14px; padding: 0 18px 0 62px; border-bottom: 1px solid rgb(240 239 233 / 9%); color: #777670; font-size: 0.62rem; }
+.contractRow { min-height: 78px; display: grid; grid-template-columns: 30px minmax(0, 1.4fr) minmax(100px, 0.7fr) 120px 92px; align-items: center; gap: 14px; padding: 12px 18px; border-bottom: 1px solid rgb(240 239 233 / 8%); }
+.contractRow:last-child { border-bottom: 0; }
+.contractIcon { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 8px; background: rgb(169 151 255 / 10%); color: var(--accent); }
+.contractRow > div:nth-child(2) { min-width: 0; display: grid; gap: 4px; }
+.contractRow > div:nth-child(2) strong { overflow: hidden; font-size: 0.75rem; text-overflow: ellipsis; white-space: nowrap; }
+.contractRow > div:nth-child(2) span,
+.contractRow time { color: #8e8d87; font-size: 0.66rem; }
+.contractArtist { overflow: hidden; font-size: 0.7rem; font-weight: 570; text-overflow: ellipsis; white-space: nowrap; }
+
 .status {
   min-height: 28px;
   display: inline-grid;
@@ -946,6 +963,41 @@
 
 .uploadPanel button:disabled { opacity: 0.58; cursor: wait; }
 
+.reportFile { width: 100%; display: flex; align-items: center; gap: 10px; margin: 0 0 18px; padding: 11px 12px; border: 1px solid rgb(169 151 255 / 24%); border-radius: 9px; background: rgb(169 151 255 / 6%); color: #d8ceff; }
+.reportFile > span { min-width: 0; display: grid; gap: 3px; }
+.reportFile strong { overflow: hidden; font-size: 0.68rem; text-overflow: ellipsis; white-space: nowrap; }
+.reportFile small { color: #8e8d87; font-size: 0.61rem; }
+
+.processingPanel,
+.reportResult { min-height: 410px; padding: 28px; border-radius: var(--radius-card); background: #20201f; }
+.processingPanel { display: grid; align-content: center; gap: 8px; }
+.processingTrack { height: 2px; margin-bottom: 24px; overflow: hidden; border-radius: 2px; background: rgb(240 239 233 / 9%); }
+.processingProgress { width: 100%; height: 100%; display: block; background: var(--accent); }
+.processingStep { min-height: 76px; display: grid; grid-template-columns: 28px minmax(0, 1fr) 18px; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgb(240 239 233 / 8%); }
+.processingStep:last-child { border-bottom: 0; }
+.processingStep > span { color: #8e8d87; font-family: var(--font-plex-mono), monospace; font-size: 0.6rem; }
+.processingStep > div { min-width: 0; display: grid; gap: 5px; }
+.processingStep strong { font-size: 0.74rem; }
+.processingStep small { color: #8e8d87; font-size: 0.64rem; }
+.processingStep > svg { color: var(--accent); }
+
+.reportResult { display: grid; align-content: center; gap: 18px; }
+.reportTotals { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: hidden; border: 1px solid rgb(240 239 233 / 9%); border-radius: 10px; }
+.reportTotals > div { min-width: 0; display: grid; gap: 7px; padding: 15px 13px; border-right: 1px solid rgb(240 239 233 / 8%); }
+.reportTotals > div:last-child { border-right: 0; background: rgb(169 151 255 / 7%); }
+.reportTotals span { color: #8e8d87; font-size: 0.6rem; }
+.reportTotals strong { overflow: hidden; font-size: 0.9rem; font-weight: 570; letter-spacing: -0.025em; text-overflow: ellipsis; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.reportDistribution { overflow: hidden; border: 1px solid rgb(240 239 233 / 9%); border-radius: 10px; }
+.reportDistributionHeading { min-height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 14px; border-bottom: 1px solid rgb(240 239 233 / 8%); }
+.reportDistributionHeading h5 { margin: 0; font-size: 0.76rem; }
+.reportDistributionHeading p { margin: 4px 0 0; color: #8e8d87; font-size: 0.62rem; }
+.reportArtistRow { min-height: 48px; display: grid; grid-template-columns: 28px minmax(0, 1fr) 42px 76px; align-items: center; gap: 9px; padding: 8px 14px; border-bottom: 1px solid rgb(240 239 233 / 7%); }
+.reportArtistRow:last-child { border-bottom: 0; }
+.reportArtistAvatar { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: rgb(169 151 255 / 12%); color: #d8ceff; font-size: 0.6rem; font-weight: 700; }
+.reportArtistRow strong { overflow: hidden; font-size: 0.68rem; text-overflow: ellipsis; white-space: nowrap; }
+.reportArtistRow small { color: #8e8d87; font-size: 0.62rem; text-align: right; font-variant-numeric: tabular-nums; }
+.reportArtistRow b { font-size: 0.68rem; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
 .explanationPanel h5 { margin-bottom: 26px; font-size: 0.9rem; }
 .explanationPanel ol { display: grid; gap: 22px; margin: 0; padding: 0; list-style: none; }
 .explanationPanel li { display: grid; grid-template-columns: 30px 1fr; gap: 13px; }
@@ -1120,7 +1172,13 @@
   .releaseAssets { grid-template-columns: 1fr; }
   .reportLayout { grid-template-columns: 1fr; }
   .uploadPanel,
-  .explanationPanel { min-height: 0; }
+  .explanationPanel,
+  .processingPanel,
+  .reportResult { min-height: 0; }
+  .contractListHeading { grid-template-columns: minmax(0, 1fr) minmax(90px, 0.55fr) 92px; }
+  .contractListHeading span:nth-child(3) { display: none; }
+  .contractRow { grid-template-columns: 30px minmax(0, 1fr) minmax(90px, 0.55fr) 92px; }
+  .contractRow time { display: none; }
 }
 
 @media (max-width: 640px) {
@@ -1172,10 +1230,25 @@
   .artistDetailsGrid > div:nth-last-child(-n + 3) { border-right: 0; border-bottom: 1px solid rgb(240 239 233 / 8%); }
   .artistDetailsGrid > div:last-child { border-bottom: 0; }
   .documentRow > svg { width: 22px; }
+  .contractSummary > div { display: grid; gap: 8px; padding: 14px 10px; }
+  .contractSummary span { font-size: 0.61rem; }
+  .contractListHeading { display: none; }
+  .contractRow { grid-template-columns: 30px minmax(0, 1fr) auto; gap: 10px; padding-inline: 12px; }
+  .contractIcon { grid-row: 1 / span 2; }
+  .contractRow > div:nth-child(2) { grid-column: 2; grid-row: 1; }
+  .contractArtist { grid-column: 2; grid-row: 2; color: #8e8d87; font-size: 0.64rem; }
+  .contractRow .status { grid-column: 3; grid-row: 1 / span 2; }
   .filterRow { margin-top: 24px; }
   .reportLayout { margin-top: 26px; }
   .uploadPanel,
-  .explanationPanel { padding: 22px; }
+  .explanationPanel,
+  .processingPanel,
+  .reportResult { padding: 22px; }
+  .reportTotals { grid-template-columns: 1fr; }
+  .reportTotals > div { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; border-right: 0; border-bottom: 1px solid rgb(240 239 233 / 8%); }
+  .reportTotals > div:last-child { border-bottom: 0; }
+  .reportArtistRow { grid-template-columns: 28px minmax(0, 1fr) 72px; }
+  .reportArtistRow small { display: none; }
   .artistSummary { grid-template-columns: 1fr; }
   .artistQuickActions { grid-template-columns: 1fr; margin-top: 26px; }
   .releaseTypeGrid { grid-template-columns: 1fr; margin-top: 26px; }

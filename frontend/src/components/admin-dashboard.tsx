@@ -31,9 +31,9 @@ type CsrfToken = {
 
 type Enquiry = {
   id: string;
-  contactName: string;
+  contactName: string | null;
   labelName: string;
-  email: string;
+  email: string | null;
   phone: string;
   telegram: string;
   comment: string | null;
@@ -355,7 +355,7 @@ export function AdminDashboard() {
                     <h2>{enquiry.labelName}</h2>
                     <span>{dateFormatter.format(new Date(enquiry.createdAt))}</span>
                   </div>
-                  <p className={styles.contactName}>{enquiry.contactName}</p>
+                  {enquiry.contactName && <p className={styles.contactName}>{enquiry.contactName}</p>}
                   {enquiry.comment && (
                     <div className={styles.comment}>
                       <span>Сайт и соцсети</span>
@@ -365,7 +365,7 @@ export function AdminDashboard() {
                 </div>
 
                 <div className={styles.contacts}>
-                  <a href={`mailto:${enquiry.email}`}>{enquiry.email}<ArrowSquareOut size={15} aria-hidden="true" /></a>
+                  {enquiry.email && <a href={`mailto:${enquiry.email}`}>{enquiry.email}<ArrowSquareOut size={15} aria-hidden="true" /></a>}
                   <a href={`tel:${enquiry.phone}`}>{enquiry.phone}<ArrowSquareOut size={15} aria-hidden="true" /></a>
                   <a href={`https://t.me/${normalizeTelegram(enquiry.telegram)}`} target="_blank" rel="noreferrer">
                     {enquiry.telegram.startsWith("@") ? enquiry.telegram : `@${enquiry.telegram}`}
